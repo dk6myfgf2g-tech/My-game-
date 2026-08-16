@@ -7,43 +7,100 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;overflow:hidden;font-family:Arial;touch-action:none}
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:Arial;
+  touch-action:none;
+}
+
 #game{
-  position:relative;width:100vw;height:100vh;overflow:hidden;
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
   background:linear-gradient(#65c7ff 0 65%,#70bd3b 65% 100%);
 }
+
 #player{
-  position:absolute;left:70px;bottom:35%;
-  width:45px;height:45px;background:red;border-radius:50%;z-index:3;
+  position:absolute;
+  left:70px;
+  bottom:35%;
+  width:45px;
+  height:45px;
+  background:red;
+  border-radius:50%;
+  z-index:3;
 }
+
 #ground{
-  position:absolute;bottom:0;width:100%;height:35%;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:35%;
 }
+
 .obstacle{
-  position:absolute;bottom:35%;right:-60px;
-  width:45px;height:65px;background:#222;border-radius:8px 8px 0 0;
+  position:absolute;
+  bottom:35%;
+  right:-60px;
+  width:45px;
+  height:65px;
+  background:#222;
+  border-radius:8px 8px 0 0;
+  z-index:2;
 }
+
 .coin{
-  position:absolute;right:-30px;
-  width:25px;height:25px;background:gold;border:3px solid #c98b00;
-  border-radius:50%;z-index:2;
+  position:absolute;
+  right:-30px;
+  width:25px;
+  height:25px;
+  background:gold;
+  border:3px solid #c98b00;
+  border-radius:50%;
+  z-index:2;
 }
+
 #hud{
-  position:absolute;top:15px;left:15px;right:15px;
-  display:flex;justify-content:space-between;
-  color:white;font-size:20px;font-weight:bold;z-index:5;
+  position:absolute;
+  top:15px;
+  left:15px;
+  right:15px;
+  display:flex;
+  justify-content:space-between;
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  z-index:5;
   text-shadow:2px 2px 3px #333;
 }
+
 .screen{
-  position:absolute;inset:0;background:#000a;color:white;
-  z-index:10;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
+  position:absolute;
+  inset:0;
+  background:#000a;
+  color:white;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
+
 button{
-  padding:15px 35px;border:0;border-radius:12px;
-  background:#20c55a;color:white;font-size:20px;
+  padding:15px 35px;
+  border:0;
+  border-radius:12px;
+  background:#20c55a;
+  color:white;
+  font-size:20px;
 }
-#gameOver{display:none}
+
+#gameOver{
+  display:none;
+}
 </style>
 </head>
 
@@ -89,7 +146,10 @@ let speed=4;
 let best=Number(localStorage.getItem("bestScore")||0);
 document.getElementById("best").textContent=best;
 
+
+/* بدء اللعبة */
 function startGame(){
+
   document.querySelectorAll(".obstacle,.coin").forEach(e=>e.remove());
 
   score=0;
@@ -99,135 +159,226 @@ function startGame(){
   jumping=false;
   playing=true;
 
-  document.getElementById("score").textContent=0;
-  document.getElementById("coins").textContent=0;
+  document.getElementById("score").textContent="0";
+  document.getElementById("coins").textContent="0";
 
   document.getElementById("start").style.display="none";
   document.getElementById("gameOver").style.display="none";
 
   player.style.bottom="35%";
+
+  /* أول عائق يظهر مباشرة */
+  obstacle();
+
+  /* أول عملة */
+  makeCoin();
 }
 
+
+/* القفز */
 function jump(){
+
   if(!playing || jumping)return;
 
   jumping=true;
+
   let up=true;
 
   const timer=setInterval(()=>{
+
     if(up){
       y+=2;
-      if(y>=58)up=false;
+
+      if(y>=58){
+        up=false;
+      }
+
     }else{
+
       y-=2;
+
       if(y<=35){
         y=35;
         jumping=false;
         clearInterval(timer);
       }
     }
+
     player.style.bottom=y+"%";
+
   },20);
 }
 
+
+/* إنشاء العائق */
 function obstacle(){
+
   if(!playing)return;
 
   const el=document.createElement("div");
   el.className="obstacle";
+
   game.appendChild(el);
 
-  let x=-60;
+  let right=-60;
 
   const timer=setInterval(()=>{
+
     if(!playing){
       clearInterval(timer);
       el.remove();
       return;
     }
 
-    x+=speed;
-    el.style.right=x+"px";
+    right+=speed;
+
+    el.style.right=right+"px";
 
     const a=player.getBoundingClientRect();
     const b=el.getBoundingClientRect();
 
-    if(a.left<b.right && a.right>b.left &&
-       a.top<b.bottom && a.bottom>b.top){
-      endGame();
+    /* التصادم */
+    if(
+      a.left<b.right &&
+      a.right>b.left &&
+      a.top<b.bottom &&
+      a.bottom>b.top
+    ){
       clearInterval(timer);
+      el.remove();
+      endGame();
       return;
     }
 
-    if(x>innerWidth+100){
+    /* العائق خرج من الشاشة */
+    if(b.right<0){
+
       clearInterval(timer);
       el.remove();
+
       score++;
+
       document.getElementById("score").textContent=score;
 
-      if(score%5===0)speed+=0.5;
+      /* زيادة السرعة */
+      if(score%5===0){
+        speed+=0.5;
+      }
     }
+
   },20);
 }
 
+
+/* إنشاء العملات */
 function makeCoin(){
+
   if(!playing)return;
 
   const el=document.createElement("div");
   el.className="coin";
+
   el.style.bottom=(42+Math.random()*15)+"%";
+
   game.appendChild(el);
 
-  let x=-30;
+  let right=-30;
 
   const timer=setInterval(()=>{
+
     if(!playing){
       clearInterval(timer);
       el.remove();
       return;
     }
 
-    x+=speed;
-    el.style.right=x+"px";
+    right+=speed;
+
+    el.style.right=right+"px";
 
     const a=player.getBoundingClientRect();
     const b=el.getBoundingClientRect();
 
-    if(a.left<b.right && a.right>b.left &&
-       a.top<b.bottom && a.bottom>b.top){
+    /* أخذ العملة */
+    if(
+      a.left<b.right &&
+      a.right>b.left &&
+      a.top<b.bottom &&
+      a.bottom>b.top
+    ){
+
       coins++;
+
       document.getElementById("coins").textContent=coins;
+
+      clearInterval(timer);
+      el.remove();
+
+      return;
+    }
+
+    if(b.right<0){
+
       clearInterval(timer);
       el.remove();
     }
 
-    if(x>innerWidth+100){
-      clearInterval(timer);
-      el.remove();
-    }
   },20);
 }
 
+
+/* نهاية اللعبة */
 function endGame(){
+
   playing=false;
 
   if(score>best){
+
     best=score;
+
     localStorage.setItem("bestScore",best);
+
     document.getElementById("best").textContent=best;
   }
 
   document.getElementById("finalScore").textContent=score;
   document.getElementById("finalCoins").textContent=coins;
+
   document.getElementById("gameOver").style.display="flex";
 }
 
-setInterval(obstacle,1500);
-setInterval(makeCoin,1000);
 
-document.addEventListener("touchstart",jump);
-document.addEventListener("keydown",e=>{
-  if(e.code==="Space"||e.code==="ArrowUp")jump();
+/* إنشاء العوائق باستمرار */
+setInterval(()=>{
+  if(playing){
+    obstacle();
+  }
+},1500);
+
+
+/* إنشاء العملات باستمرار */
+setInterval(()=>{
+  if(playing){
+    makeCoin();
+  }
+},1000);
+
+
+/* لمس الشاشة */
+document.addEventListener("touchstart",(e)=>{
+  if(e.target.tagName==="BUTTON")return;
+  jump();
+});
+
+
+/* الكمبيوتر */
+document.addEventListener("keydown",(e)=>{
+
+  if(e.code==="Space" || e.code==="ArrowUp"){
+    e.preventDefault();
+    jump();
+  }
+
 });
 </script>
 
