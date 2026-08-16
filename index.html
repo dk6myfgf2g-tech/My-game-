@@ -2,15 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jump Game</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Jump Runner</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   overflow:hidden;
-  font-family:Arial;
+  font-family:Arial,sans-serif;
   touch-action:none;
 }
 
@@ -19,49 +20,224 @@ body{
   width:100vw;
   height:100vh;
   overflow:hidden;
-  background:linear-gradient(#65c7ff 0 65%,#70bd3b 65% 100%);
+  background:linear-gradient(#55c9ff 0%,#b9edff 62%,#73c83d 62%,#4c9f2a 100%);
 }
 
-#player{
+/* الشمس */
+#sun{
   position:absolute;
-  left:70px;
-  bottom:35%;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#ffd83d;
+  top:10%;
+  right:12%;
+  box-shadow:0 0 35px #fff08a;
+}
+
+/* السحب */
+.cloud{
+  position:absolute;
+  width:100px;
+  height:30px;
+  background:white;
+  border-radius:30px;
+  opacity:.85;
+}
+
+.cloud:before,
+.cloud:after{
+  content:"";
+  position:absolute;
+  background:white;
+  border-radius:50%;
+}
+
+.cloud:before{
   width:45px;
   height:45px;
-  background:red;
-  border-radius:50%;
-  z-index:3;
+  left:15px;
+  top:-22px;
 }
 
+.cloud:after{
+  width:55px;
+  height:55px;
+  right:12px;
+  top:-28px;
+}
+
+.c1{top:15%;left:8%}
+.c2{top:28%;left:45%;transform:scale(.7)}
+
+/* الأرض */
 #ground{
   position:absolute;
   bottom:0;
   width:100%;
-  height:35%;
+  height:38%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #4f9f2e 0 35px,
+      #469128 35px 70px
+    );
+  border-top:8px solid #8b5a2b;
 }
 
+#ground:after{
+  content:"";
+  position:absolute;
+  top:8px;
+  width:100%;
+  height:15px;
+  background:#69bd35;
+}
+
+/* الشخصية */
+#player{
+  position:absolute;
+  left:70px;
+  bottom:38%;
+  width:52px;
+  height:65px;
+  z-index:5;
+}
+
+.head{
+  position:absolute;
+  top:0;
+  left:7px;
+  width:38px;
+  height:38px;
+  background:#ffd09b;
+  border:3px solid #333;
+  border-radius:50%;
+}
+
+.hair{
+  position:absolute;
+  top:-3px;
+  left:5px;
+  width:40px;
+  height:18px;
+  background:#382015;
+  border-radius:20px 20px 5px 5px;
+}
+
+.eye{
+  position:absolute;
+  top:14px;
+  width:5px;
+  height:7px;
+  background:#222;
+  border-radius:50%;
+}
+
+.eye1{left:12px}
+.eye2{right:12px}
+
+.body{
+  position:absolute;
+  bottom:0;
+  left:8px;
+  width:36px;
+  height:34px;
+  background:#2878e8;
+  border:3px solid #222;
+  border-radius:12px 12px 7px 7px;
+}
+
+.leg{
+  position:absolute;
+  bottom:-8px;
+  width:10px;
+  height:17px;
+  background:#333;
+  border-radius:5px;
+}
+
+.leg1{left:14px}
+.leg2{right:14px}
+
+/* العوائق */
 .obstacle{
   position:absolute;
-  bottom:35%;
-  right:-60px;
-  width:45px;
-  height:65px;
-  background:#222;
-  border-radius:8px 8px 0 0;
-  z-index:2;
+  bottom:38%;
+  width:48px;
+  height:68px;
+  z-index:4;
 }
 
+/* صخرة */
+.rock{
+  width:48px;
+  height:55px;
+  position:absolute;
+  bottom:0;
+  background:#555;
+  border:4px solid #333;
+  border-radius:55% 45% 10% 10%;
+}
+
+/* شوكة */
+.spike{
+  position:absolute;
+  bottom:0;
+  width:0;
+  height:0;
+  border-left:25px solid transparent;
+  border-right:25px solid transparent;
+  border-bottom:65px solid #d82b2b;
+  filter:drop-shadow(2px 3px 0 #7b1717);
+}
+
+/* شجرة صغيرة */
+.tree{
+  position:absolute;
+  bottom:0;
+  width:18px;
+  height:48px;
+  left:15px;
+  background:#754323;
+  border-radius:5px;
+}
+
+.tree:before{
+  content:"";
+  position:absolute;
+  width:58px;
+  height:58px;
+  background:#238c35;
+  border:4px solid #176527;
+  border-radius:50%;
+  left:-20px;
+  top:-38px;
+}
+
+/* العملات */
 .coin{
   position:absolute;
-  right:-30px;
-  width:25px;
-  height:25px;
-  background:gold;
-  border:3px solid #c98b00;
+  width:28px;
+  height:28px;
+  background:#ffd52e;
+  border:4px solid #d18b00;
   border-radius:50%;
-  z-index:2;
+  z-index:4;
+  box-shadow:0 0 8px #fff28a;
 }
 
+.coin:after{
+  content:"$";
+  position:absolute;
+  inset:0;
+  text-align:center;
+  line-height:20px;
+  font-weight:bold;
+  color:#b87900;
+}
+
+/* HUD */
 #hud{
   position:absolute;
   top:15px;
@@ -72,16 +248,17 @@ body{
   color:white;
   font-size:20px;
   font-weight:bold;
-  z-index:5;
-  text-shadow:2px 2px 3px #333;
+  z-index:10;
+  text-shadow:2px 2px 4px #333;
 }
 
+/* الشاشات */
 .screen{
   position:absolute;
   inset:0;
-  background:#000a;
+  background:#0008;
   color:white;
-  z-index:10;
+  z-index:20;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -89,13 +266,29 @@ body{
   text-align:center;
 }
 
-button{
-  padding:15px 35px;
-  border:0;
-  border-radius:12px;
-  background:#20c55a;
-  color:white;
+.screen h1{
+  font-size:38px;
+  margin:10px;
+}
+
+.screen p{
   font-size:20px;
+}
+
+button{
+  padding:15px 40px;
+  border:0;
+  border-radius:15px;
+  background:#19c957;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  box-shadow:0 5px 0 #108b3b;
+}
+
+button:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 #108b3b;
 }
 
 #gameOver{
@@ -108,25 +301,40 @@ button{
 
 <div id="game">
 
+<div id="sun"></div>
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
+
 <div id="hud">
 <span>🏆 <b id="score">0</b></span>
 <span>🪙 <b id="coins">0</b></span>
 <span>⭐ <b id="best">0</b></span>
 </div>
 
-<div id="player"></div>
+<!-- الشخصية -->
+<div id="player">
+  <div class="head">
+    <div class="hair"></div>
+    <div class="eye eye1"></div>
+    <div class="eye eye2"></div>
+  </div>
+  <div class="body"></div>
+  <div class="leg leg1"></div>
+  <div class="leg leg2"></div>
+</div>
+
 <div id="ground"></div>
 
 <div id="start" class="screen">
-<h1>🎮 Jump Game</h1>
+<h1>🏃 Jump Runner</h1>
 <p>اضغط على الشاشة للقفز</p>
-<button onclick="startGame()">ابدأ</button>
+<button onclick="startGame()">ابدأ اللعب</button>
 </div>
 
 <div id="gameOver" class="screen">
 <h1>💥 انتهت اللعبة</h1>
-<p>النقاط: <b id="finalScore">0</b></p>
-<p>العملات: <b id="finalCoins">0</b></p>
+<p>🏆 النقاط: <b id="finalScore">0</b></p>
+<p>🪙 العملات: <b id="finalCoins">0</b></p>
 <button onclick="startGame()">إعادة اللعب</button>
 </div>
 
@@ -138,10 +346,10 @@ const player=document.getElementById("player");
 
 let playing=false;
 let jumping=false;
-let y=35;
+let y=38;
 let score=0;
 let coins=0;
-let speed=4;
+let speed=5;
 
 let best=Number(localStorage.getItem("bestScore")||0);
 document.getElementById("best").textContent=best;
@@ -154,8 +362,8 @@ function startGame(){
 
   score=0;
   coins=0;
-  speed=4;
-  y=35;
+  speed=5;
+  y=38;
   jumping=false;
   playing=true;
 
@@ -165,12 +373,9 @@ function startGame(){
   document.getElementById("start").style.display="none";
   document.getElementById("gameOver").style.display="none";
 
-  player.style.bottom="35%";
+  player.style.bottom="38%";
 
-  /* أول عائق يظهر مباشرة */
   obstacle();
-
-  /* أول عملة */
   makeCoin();
 }
 
@@ -187,19 +392,22 @@ function jump(){
   const timer=setInterval(()=>{
 
     if(up){
-      y+=2;
 
-      if(y>=58){
+      y+=2.5;
+
+      if(y>=60){
         up=false;
       }
 
     }else{
 
-      y-=2;
+      y-=2.5;
 
-      if(y<=35){
-        y=35;
+      if(y<=38){
+
+        y=38;
         jumping=false;
+
         clearInterval(timer);
       }
     }
@@ -210,7 +418,7 @@ function jump(){
 }
 
 
-/* إنشاء العائق */
+/* العائق */
 function obstacle(){
 
   if(!playing)return;
@@ -218,39 +426,60 @@ function obstacle(){
   const el=document.createElement("div");
   el.className="obstacle";
 
+  const type=Math.floor(Math.random()*3);
+
+  if(type===0){
+
+    const rock=document.createElement("div");
+    rock.className="rock";
+    el.appendChild(rock);
+
+  }else if(type===1){
+
+    const spike=document.createElement("div");
+    spike.className="spike";
+    el.appendChild(spike);
+
+  }else{
+
+    const tree=document.createElement("div");
+    tree.className="tree";
+    el.appendChild(tree);
+  }
+
   game.appendChild(el);
 
-  let right=-60;
+  let right=-70;
 
   const timer=setInterval(()=>{
 
     if(!playing){
+
       clearInterval(timer);
       el.remove();
       return;
     }
 
     right+=speed;
-
     el.style.right=right+"px";
 
     const a=player.getBoundingClientRect();
     const b=el.getBoundingClientRect();
 
-    /* التصادم */
     if(
-      a.left<b.right &&
-      a.right>b.left &&
-      a.top<b.bottom &&
-      a.bottom>b.top
+      a.left < b.right-8 &&
+      a.right > b.left+8 &&
+      a.top < b.bottom-5 &&
+      a.bottom > b.top+8
     ){
+
       clearInterval(timer);
       el.remove();
+
       endGame();
       return;
     }
 
-    /* العائق خرج من الشاشة */
     if(b.right<0){
 
       clearInterval(timer);
@@ -260,7 +489,6 @@ function obstacle(){
 
       document.getElementById("score").textContent=score;
 
-      /* زيادة السرعة */
       if(score%5===0){
         speed+=0.5;
       }
@@ -270,23 +498,25 @@ function obstacle(){
 }
 
 
-/* إنشاء العملات */
+/* العملات */
 function makeCoin(){
 
   if(!playing)return;
 
   const el=document.createElement("div");
+
   el.className="coin";
 
-  el.style.bottom=(42+Math.random()*15)+"%";
+  el.style.bottom=(43+Math.random()*15)+"%";
 
   game.appendChild(el);
 
-  let right=-30;
+  let right=-40;
 
   const timer=setInterval(()=>{
 
     if(!playing){
+
       clearInterval(timer);
       el.remove();
       return;
@@ -299,7 +529,6 @@ function makeCoin(){
     const a=player.getBoundingClientRect();
     const b=el.getBoundingClientRect();
 
-    /* أخذ العملة */
     if(
       a.left<b.right &&
       a.right>b.left &&
@@ -348,26 +577,33 @@ function endGame(){
 }
 
 
-/* إنشاء العوائق باستمرار */
+/* العوائق باستمرار */
 setInterval(()=>{
+
   if(playing){
     obstacle();
   }
+
 },1500);
 
 
-/* إنشاء العملات باستمرار */
+/* العملات باستمرار */
 setInterval(()=>{
+
   if(playing){
     makeCoin();
   }
+
 },1000);
 
 
 /* لمس الشاشة */
 document.addEventListener("touchstart",(e)=>{
+
   if(e.target.tagName==="BUTTON")return;
+
   jump();
+
 });
 
 
@@ -375,7 +611,9 @@ document.addEventListener("touchstart",(e)=>{
 document.addEventListener("keydown",(e)=>{
 
   if(e.code==="Space" || e.code==="ArrowUp"){
+
     e.preventDefault();
+
     jump();
   }
 
