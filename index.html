@@ -2,95 +2,48 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jump Game 🎮</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jump Game</title>
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  overflow:hidden;
-  font-family:Arial,sans-serif;
-  background:#87ceeb;
-  touch-action:manipulation;
-}
+body{margin:0;overflow:hidden;font-family:Arial;touch-action:none}
 #game{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  overflow:hidden;
-  background:linear-gradient(#69c5ff 0%,#dff6ff 65%,#72c43d 65%);
+  position:relative;width:100vw;height:100vh;overflow:hidden;
+  background:linear-gradient(#65c7ff 0 65%,#70bd3b 65% 100%);
 }
 #player{
-  position:absolute;
-  width:45px;
-  height:45px;
-  left:70px;
-  bottom:35%;
-  background:#ff3b30;
-  border-radius:50%;
-  z-index:3;
+  position:absolute;left:70px;bottom:35%;
+  width:45px;height:45px;background:red;border-radius:50%;z-index:3;
 }
 #ground{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:35%;
-  background:#55a832;
+  position:absolute;bottom:0;width:100%;height:35%;
 }
 .obstacle{
-  position:absolute;
-  bottom:35%;
-  width:42px;
-  height:65px;
-  background:#333;
-  border-radius:8px 8px 0 0;
+  position:absolute;bottom:35%;right:-60px;
+  width:45px;height:65px;background:#222;border-radius:8px 8px 0 0;
 }
 .coin{
-  position:absolute;
-  bottom:48%;
-  width:25px;
-  height:25px;
-  border-radius:50%;
-  background:#ffd700;
-  border:3px solid #d99b00;
+  position:absolute;right:-30px;
+  width:25px;height:25px;background:gold;border:3px solid #c98b00;
+  border-radius:50%;z-index:2;
 }
 #hud{
-  position:absolute;
-  top:15px;
-  left:15px;
-  right:15px;
-  display:flex;
-  justify-content:space-between;
-  color:white;
-  font-size:20px;
-  font-weight:bold;
-  text-shadow:2px 2px 4px #333;
-  z-index:5;
+  position:absolute;top:15px;left:15px;right:15px;
+  display:flex;justify-content:space-between;
+  color:white;font-size:20px;font-weight:bold;z-index:5;
+  text-shadow:2px 2px 3px #333;
 }
-#start,#gameOver{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  color:white;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  text-align:center;
+.screen{
+  position:absolute;inset:0;background:#000a;color:white;
+  z-index:10;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+}
+button{
+  padding:15px 35px;border:0;border-radius:12px;
+  background:#20c55a;color:white;font-size:20px;
 }
 #gameOver{display:none}
-h1{font-size:42px;margin:10px}
-button{
-  border:0;
-  border-radius:14px;
-  padding:15px 35px;
-  font-size:21px;
-  background:#22c55e;
-  color:white;
-}
-.small{margin:8px;color:#ddd}
 </style>
 </head>
 
@@ -98,69 +51,59 @@ button{
 
 <div id="game">
 
-  <div id="hud">
-    <div>🏆 <span id="score">0</span></div>
-    <div>🪙 <span id="coins">0</span></div>
-    <div>⭐ <span id="best">0</span></div>
-  </div>
+<div id="hud">
+<span>🏆 <b id="score">0</b></span>
+<span>🪙 <b id="coins">0</b></span>
+<span>⭐ <b id="best">0</b></span>
+</div>
 
-  <div id="player"></div>
-  <div id="ground"></div>
+<div id="player"></div>
+<div id="ground"></div>
 
-  <div id="start">
-    <h1>🎮 Jump Game</h1>
-    <p>اقفز فوق العوائق واجمع العملات!</p>
-    <p class="small">اضغط على الشاشة للقفز</p>
-    <button onclick="startGame()">ابدأ اللعب</button>
-  </div>
+<div id="start" class="screen">
+<h1>🎮 Jump Game</h1>
+<p>اضغط على الشاشة للقفز</p>
+<button onclick="startGame()">ابدأ</button>
+</div>
 
-  <div id="gameOver">
-    <h1>💥 انتهت اللعبة</h1>
-    <p>النقاط: <span id="finalScore">0</span></p>
-    <p>العملات: <span id="finalCoins">0</span></p>
-    <button onclick="startGame()">إعادة اللعب</button>
-  </div>
+<div id="gameOver" class="screen">
+<h1>💥 انتهت اللعبة</h1>
+<p>النقاط: <b id="finalScore">0</b></p>
+<p>العملات: <b id="finalCoins">0</b></p>
+<button onclick="startGame()">إعادة اللعب</button>
+</div>
 
 </div>
 
 <script>
-const player=document.getElementById("player");
 const game=document.getElementById("game");
-const scoreEl=document.getElementById("score");
-const coinsEl=document.getElementById("coins");
-const bestEl=document.getElementById("best");
-const startScreen=document.getElementById("start");
-const gameOver=document.getElementById("gameOver");
-const finalScore=document.getElementById("finalScore");
-const finalCoins=document.getElementById("finalCoins");
+const player=document.getElementById("player");
 
 let playing=false;
 let jumping=false;
+let y=35;
 let score=0;
 let coins=0;
-let best=Number(localStorage.getItem("jumpBest")||0);
-let speed=5;
-let obstacles=[];
-let coinObjects=[];
+let speed=4;
 
-bestEl.textContent=best;
+let best=Number(localStorage.getItem("bestScore")||0);
+document.getElementById("best").textContent=best;
 
 function startGame(){
   document.querySelectorAll(".obstacle,.coin").forEach(e=>e.remove());
 
-  obstacles=[];
-  coinObjects=[];
   score=0;
   coins=0;
-  speed=5;
+  speed=4;
+  y=35;
   jumping=false;
   playing=true;
 
-  scoreEl.textContent=0;
-  coinsEl.textContent=0;
+  document.getElementById("score").textContent=0;
+  document.getElementById("coins").textContent=0;
 
-  startScreen.style.display="none";
-  gameOver.style.display="none";
+  document.getElementById("start").style.display="none";
+  document.getElementById("gameOver").style.display="none";
 
   player.style.bottom="35%";
 }
@@ -169,142 +112,123 @@ function jump(){
   if(!playing || jumping)return;
 
   jumping=true;
+  let up=true;
 
-  let y=35;
-  let up=setInterval(()=>{
-    y+=2;
+  const timer=setInterval(()=>{
+    if(up){
+      y+=2;
+      if(y>=58)up=false;
+    }else{
+      y-=2;
+      if(y<=35){
+        y=35;
+        jumping=false;
+        clearInterval(timer);
+      }
+    }
     player.style.bottom=y+"%";
+  },20);
+}
 
-    if(y>=58){
-      clearInterval(up);
+function obstacle(){
+  if(!playing)return;
 
-      let down=setInterval(()=>{
-        y-=2;
-        player.style.bottom=y+"%";
+  const el=document.createElement("div");
+  el.className="obstacle";
+  game.appendChild(el);
 
-        if(y<=35){
-          clearInterval(down);
-          player.style.bottom="35%";
-          jumping=false;
-        }
-      },20);
+  let x=-60;
+
+  const timer=setInterval(()=>{
+    if(!playing){
+      clearInterval(timer);
+      el.remove();
+      return;
+    }
+
+    x+=speed;
+    el.style.right=x+"px";
+
+    const a=player.getBoundingClientRect();
+    const b=el.getBoundingClientRect();
+
+    if(a.left<b.right && a.right>b.left &&
+       a.top<b.bottom && a.bottom>b.top){
+      endGame();
+      clearInterval(timer);
+      return;
+    }
+
+    if(x>innerWidth+100){
+      clearInterval(timer);
+      el.remove();
+      score++;
+      document.getElementById("score").textContent=score;
+
+      if(score%5===0)speed+=0.5;
     }
   },20);
 }
 
-function createObstacle(){
+function makeCoin(){
   if(!playing)return;
 
-  const o=document.createElement("div");
-  o.className="obstacle";
-  o.style.right="-50px";
-  game.appendChild(o);
+  const el=document.createElement("div");
+  el.className="coin";
+  el.style.bottom=(42+Math.random()*15)+"%";
+  game.appendChild(el);
 
-  obstacles.push({el:o,x:-50});
-}
+  let x=-30;
 
-function createCoin(){
-  if(!playing)return;
-
-  const c=document.createElement("div");
-  c.className="coin";
-  c.style.right="-30px";
-  c.style.bottom=(Math.random()*20+42)+"%";
-  game.appendChild(c);
-
-  coinObjects.push({el:c,x:-30});
-}
-
-function update(){
-  if(!playing)return;
-
-  const playerRect=player.getBoundingClientRect();
-
-  obstacles.forEach((o,i)=>{
-    o.x+=speed;
-    o.el.style.right=o.x+"px";
-
-    const r=o.el.getBoundingClientRect();
-
-    if(
-      playerRect.left<r.right &&
-      playerRect.right>r.left &&
-      playerRect.top<r.bottom &&
-      playerRect.bottom>r.top
-    ){
-      endGame();
+  const timer=setInterval(()=>{
+    if(!playing){
+      clearInterval(timer);
+      el.remove();
+      return;
     }
 
-    if(o.x>window.innerWidth+100){
-      o.el.remove();
-      obstacles.splice(i,1);
-      score++;
-      scoreEl.textContent=score;
+    x+=speed;
+    el.style.right=x+"px";
 
-      if(score%5===0)speed+=0.5;
-    }
-  });
+    const a=player.getBoundingClientRect();
+    const b=el.getBoundingClientRect();
 
-  coinObjects.forEach((c,i)=>{
-    c.x+=speed;
-    c.el.style.right=c.x+"px";
-
-    const r=c.el.getBoundingClientRect();
-
-    if(
-      playerRect.left<r.right &&
-      playerRect.right>r.left &&
-      playerRect.top<r.bottom &&
-      playerRect.bottom>r.top
-    ){
+    if(a.left<b.right && a.right>b.left &&
+       a.top<b.bottom && a.bottom>b.top){
       coins++;
-      coinsEl.textContent=coins;
-      c.el.remove();
-      coinObjects.splice(i,1);
+      document.getElementById("coins").textContent=coins;
+      clearInterval(timer);
+      el.remove();
     }
 
-    if(c.x>window.innerWidth+100){
-      c.el.remove();
-      coinObjects.splice(i,1);
+    if(x>innerWidth+100){
+      clearInterval(timer);
+      el.remove();
     }
-  });
-
-  requestAnimationFrame(update);
+  },20);
 }
 
 function endGame(){
-  if(!playing)return;
-
   playing=false;
 
   if(score>best){
     best=score;
-    localStorage.setItem("jumpBest",best);
-    bestEl.textContent=best;
+    localStorage.setItem("bestScore",best);
+    document.getElementById("best").textContent=best;
   }
 
-  finalScore.textContent=score;
-  finalCoins.textContent=coins;
-  gameOver.style.display="flex";
+  document.getElementById("finalScore").textContent=score;
+  document.getElementById("finalCoins").textContent=coins;
+  document.getElementById("gameOver").style.display="flex";
 }
 
-setInterval(()=>{
-  if(playing)createObstacle();
-},1700);
-
-setInterval(()=>{
-  if(playing)createCoin();
-},1200);
+setInterval(obstacle,1500);
+setInterval(makeCoin,1000);
 
 document.addEventListener("touchstart",jump);
-document.addEventListener("click",(e)=>{
-  if(e.target.tagName!=="BUTTON")jump();
-});
 document.addEventListener("keydown",e=>{
   if(e.code==="Space"||e.code==="ArrowUp")jump();
 });
-
-requestAnimationFrame(update);
 </script>
 
 </body>
