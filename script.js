@@ -1,42 +1,99 @@
-const demoResults = [
-  { name: "Player1", score: 95 },
-  { name: "TestUser", score: 82 },
-  { name: "Guest", score: 74 }
-];
+const player = document.getElementById("player");
+const game = document.getElementById("game");
+const scoreText = document.getElementById("score");
+const gameOver = document.getElementById("gameOver");
+const finalScore = document.getElementById("finalScore");
 
-function saveName() {
-  const nickname = document.getElementById("nickname").value.trim();
-  const result = document.getElementById("result");
+let jumping = false;
+let gameEnded = false;
+let score = 0;
+let playerBottom = 30;
 
-  if (!nickname) {
-    result.textContent = "اكتب اسمًا مستعارًا أولًا.";
-    return;
+function jump() {
+  if (jumping || gameEnded) return;
+
+  jumping = true;
+
+  let up = setInterval(() => {
+    playerBottom += 1.5;
+    player.style.bottom = playerBottom + "%";
+
+    if (playerBottom >= 55) {
+      clearInterval(up);
+
+      let down = setInterval(() => {
+        playerBottom -= 1.5;
+        player.style.bottom = playerBottom + "%";
+
+        if (playerBottom <= 30) {
+          playerBottom = 30;
+          player.style.bottom = "30%";
+          clearInterval(down);
+          jumping = false;
+        }
+      }, 20);
+    }
+  }, 20);
+}
+
+function createObstacle() {
+  if (gameEnded) return;
+
+  const obstacle = document.createElement("div");
+  obstacle.className = "obstacle";
+  obstacle.style.right = "-50px";
+  game.appendChild(obstacle);
+
+  let position = -50;
+
+  const move = setInterval(() => {
+    if (gameEnded) {
+      clearInterval(move);
+      obstacle.remove();
+      return;
+    }
+
+    position += 5;
+    obstacle.style.right = position + "px";
+
+    const playerRect = player.getBoundingClientRect();
+    const obstacleRect = obstacle.getBoundingClientRect();
+
+    if (
+      playerRect.left < obstacleRect.right &&
+      playerRect.right > obstacleRect.left &&
+      playerRect.top < obstacleRect.bottom &&
+      playerRect.bottom > obstacleRect.top
+    ) {
+      endGame();
+      clearInterval(move);
+    }
+
+    if (position > window.innerWidth + 100) {
+      clearInterval(move);
+      obstacle.remove();
+      score++;
+      scoreText.textContent = "النقاط: " + score;
+    }
+  }, 20);
+}
+
+function endGame() {
+  gameEnded = true;
+  finalScore.textContent = "النقاط: " + score;
+  gameOver.style.display = "flex";
+}
+
+setInterval(() => {
+  if (!gameEnded) {
+    createObstacle();
   }
+}, 1800);
 
-  localStorage.setItem("demoNickname", nickname);
-
-  const score = Math.floor(Math.random() * 51) + 50;
-
-  demoResults.push({
-    name: nickname,
-    score: score
-  });
-
-  result.textContent = `مبروك ${nickname}! نتيجتك: ${score}`;
-
-  showResults();
-}
-
-function showResults() {
-  const container = document.getElementById("results");
-
-  const sorted = [...demoResults].sort((a, b) => b.score - a.score);
-
-  container.innerHTML = sorted
-    .map((player, index) =>
-      `<p>${index + 1}. ${player.name} — ${player.score} نقطة</p>`
-    )
-    .join("");
-}
-
-showResults();
+document.addEventListener("touchstart", jump);
+document.addEventListener("click", jump);
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space" || e.code === "ArrowUp") {
+    jump();
+  }
+});
