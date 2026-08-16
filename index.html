@@ -3,229 +3,261 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Sky Runner</title>
+<title>Jump Runner</title>
 
 <style>
 *{box-sizing:border-box}
-html,body{
-  margin:0;width:100%;height:100%;overflow:hidden;
+
+body{
+  margin:0;
+  overflow:hidden;
   font-family:Arial,sans-serif;
   touch-action:none;
 }
-body{background:#65cfff}
 
 #game{
   position:relative;
-  width:100vw;height:100vh;
+  width:100vw;
+  height:100vh;
   overflow:hidden;
-  background:linear-gradient(#54c9ff 0%,#c9f3ff 65%,#78c63e 65%,#4c9b2d 100%);
+  background:linear-gradient(#55c9ff 0%,#b9edff 62%,#73c83d 62%,#4c9f2a 100%);
 }
 
 /* الشمس */
 #sun{
   position:absolute;
-  width:90px;height:90px;
-  top:9%;right:12%;
+  width:90px;
+  height:90px;
   border-radius:50%;
-  background:#ffe04a;
-  box-shadow:0 0 45px #fff3a0;
+  background:#ffd83d;
+  top:10%;
+  right:12%;
+  box-shadow:0 0 35px #fff08a;
 }
 
-/* السحاب */
+/* السحب */
 .cloud{
   position:absolute;
-  width:110px;height:30px;
-  background:#fff;
+  width:100px;
+  height:30px;
+  background:white;
   border-radius:30px;
   opacity:.85;
 }
-.cloud:before,.cloud:after{
+
+.cloud:before,
+.cloud:after{
   content:"";
   position:absolute;
-  background:#fff;
+  background:white;
   border-radius:50%;
 }
-.cloud:before{
-  width:48px;height:48px;
-  left:15px;top:-22px;
-}
-.cloud:after{
-  width:58px;height:58px;
-  right:10px;top:-30px;
-}
-.cloud1{top:15%;left:8%}
-.cloud2{top:30%;left:48%;transform:scale(.7)}
 
-/* الجبال */
-#mountains{
-  position:absolute;
-  bottom:35%;
-  width:100%;
-  height:25%;
+.cloud:before{
+  width:45px;
+  height:45px;
+  left:15px;
+  top:-22px;
 }
-.mountain{
-  position:absolute;
-  bottom:0;
-  width:0;height:0;
-  border-left:90px solid transparent;
-  border-right:90px solid transparent;
-  border-bottom:150px solid #79a8a5;
+
+.cloud:after{
+  width:55px;
+  height:55px;
+  right:12px;
+  top:-28px;
 }
-.m1{left:5%}
-.m2{left:30%;border-bottom-color:#659594}
-.m3{left:60%;border-bottom-color:#719e9b}
-.m4{left:82%;border-bottom-color:#5f8f8d}
+
+.c1{top:15%;left:8%}
+.c2{top:28%;left:45%;transform:scale(.7)}
 
 /* الأرض */
 #ground{
   position:absolute;
   bottom:0;
   width:100%;
-  height:35%;
+  height:38%;
   background:
     repeating-linear-gradient(
       90deg,
-      #4c9b2c 0 35px,
-      #438c28 35px 70px
+      #4f9f2e 0 35px,
+      #469128 35px 70px
     );
-  border-top:8px solid #8b5a32;
+  border-top:8px solid #8b5a2b;
 }
 
-/* اللاعب */
+#ground:after{
+  content:"";
+  position:absolute;
+  top:8px;
+  width:100%;
+  height:15px;
+  background:#69bd35;
+}
+
+/* الشخصية */
 #player{
   position:absolute;
   left:70px;
-  bottom:35%;
+  bottom:38%;
   width:52px;
-  height:68px;
+  height:65px;
   z-index:5;
 }
 
 .head{
   position:absolute;
-  left:7px;top:0;
-  width:38px;height:38px;
+  top:0;
+  left:7px;
+  width:38px;
+  height:38px;
   background:#ffd09b;
-  border:3px solid #222;
+  border:3px solid #333;
   border-radius:50%;
 }
+
 .hair{
   position:absolute;
-  left:3px;top:-4px;
-  width:40px;height:19px;
-  background:#302015;
-  border-radius:20px 20px 6px 6px;
+  top:-3px;
+  left:5px;
+  width:40px;
+  height:18px;
+  background:#382015;
+  border-radius:20px 20px 5px 5px;
 }
+
 .eye{
   position:absolute;
   top:14px;
-  width:5px;height:7px;
+  width:5px;
+  height:7px;
   background:#222;
   border-radius:50%;
 }
-.e1{left:11px}.e2{right:11px}
+
+.eye1{left:12px}
+.eye2{right:12px}
 
 .body{
   position:absolute;
-  left:8px;bottom:0;
-  width:36px;height:36px;
-  background:#2879e8;
+  bottom:0;
+  left:8px;
+  width:36px;
+  height:34px;
+  background:#2878e8;
   border:3px solid #222;
   border-radius:12px 12px 7px 7px;
 }
+
 .leg{
   position:absolute;
   bottom:-8px;
-  width:10px;height:18px;
-  background:#292929;
+  width:10px;
+  height:17px;
+  background:#333;
   border-radius:5px;
 }
-.l1{left:14px}.l2{right:14px}
+
+.leg1{left:14px}
+.leg2{right:14px}
 
 /* العوائق */
 .obstacle{
   position:absolute;
-  bottom:35%;
-  width:55px;height:70px;
+  bottom:38%;
+  width:48px;
+  height:68px;
   z-index:4;
 }
 
+/* صخرة */
 .rock{
+  width:48px;
+  height:55px;
   position:absolute;
   bottom:0;
-  width:52px;height:55px;
   background:#555;
   border:4px solid #333;
-  border-radius:55% 45% 12% 12%;
+  border-radius:55% 45% 10% 10%;
 }
 
+/* شوكة */
 .spike{
   position:absolute;
   bottom:0;
-  width:0;height:0;
-  border-left:27px solid transparent;
-  border-right:27px solid transparent;
-  border-bottom:68px solid #d82b2b;
-  filter:drop-shadow(2px 3px 0 #801515);
+  width:0;
+  height:0;
+  border-left:25px solid transparent;
+  border-right:25px solid transparent;
+  border-bottom:65px solid #d82b2b;
+  filter:drop-shadow(2px 3px 0 #7b1717);
 }
 
+/* شجرة صغيرة */
 .tree{
   position:absolute;
-  bottom:0;left:17px;
-  width:20px;height:50px;
-  background:#714322;
+  bottom:0;
+  width:18px;
+  height:48px;
+  left:15px;
+  background:#754323;
   border-radius:5px;
 }
+
 .tree:before{
   content:"";
   position:absolute;
-  width:62px;height:62px;
-  left:-21px;top:-42px;
-  background:#258d35;
-  border:4px solid #176526;
+  width:58px;
+  height:58px;
+  background:#238c35;
+  border:4px solid #176527;
   border-radius:50%;
+  left:-20px;
+  top:-38px;
 }
 
 /* العملات */
 .coin{
   position:absolute;
-  width:29px;height:29px;
+  width:28px;
+  height:28px;
+  background:#ffd52e;
+  border:4px solid #d18b00;
   border-radius:50%;
-  background:#ffd72e;
-  border:4px solid #d18c00;
-  box-shadow:0 0 12px #fff29a;
   z-index:4;
+  box-shadow:0 0 8px #fff28a;
 }
+
 .coin:after{
   content:"$";
   position:absolute;
   inset:0;
   text-align:center;
-  line-height:21px;
+  line-height:20px;
   font-weight:bold;
-  color:#ae7100;
+  color:#b87900;
 }
 
 /* HUD */
 #hud{
   position:absolute;
-  top:14px;
-  left:14px;right:14px;
+  top:15px;
+  left:15px;
+  right:15px;
   display:flex;
   justify-content:space-between;
   color:white;
-  font-size:19px;
+  font-size:20px;
   font-weight:bold;
-  text-shadow:2px 2px 4px #333;
   z-index:10;
+  text-shadow:2px 2px 4px #333;
 }
 
 /* الشاشات */
 .screen{
   position:absolute;
   inset:0;
-  background:#0009;
-  color:#fff;
+  background:#0008;
+  color:white;
   z-index:20;
   display:flex;
   flex-direction:column;
@@ -233,38 +265,34 @@ body{background:#65cfff}
   justify-content:center;
   text-align:center;
 }
+
 .screen h1{
-  font-size:40px;
-  margin:8px;
+  font-size:38px;
+  margin:10px;
 }
-.screen p{font-size:19px}
+
+.screen p{
+  font-size:20px;
+}
 
 button{
-  padding:15px 42px;
+  padding:15px 40px;
   border:0;
   border-radius:15px;
-  background:#18c957;
-  color:#fff;
-  font-size:21px;
+  background:#19c957;
+  color:white;
+  font-size:22px;
   font-weight:bold;
-  box-shadow:0 5px 0 #10883b;
+  box-shadow:0 5px 0 #108b3b;
 }
+
 button:active{
   transform:translateY(4px);
-  box-shadow:0 1px 0 #10883b;
+  box-shadow:0 1px 0 #108b3b;
 }
 
-#gameOver{display:none}
-
-#tip{
-  position:absolute;
-  bottom:12px;
-  width:100%;
-  text-align:center;
-  color:#fff;
-  font-size:13px;
-  z-index:8;
-  text-shadow:1px 1px 2px #333;
+#gameOver{
+  display:none;
 }
 </style>
 </head>
@@ -274,50 +302,40 @@ button:active{
 <div id="game">
 
 <div id="sun"></div>
-<div class="cloud cloud1"></div>
-<div class="cloud cloud2"></div>
-
-<div id="mountains">
-  <div class="mountain m1"></div>
-  <div class="mountain m2"></div>
-  <div class="mountain m3"></div>
-  <div class="mountain m4"></div>
-</div>
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
 
 <div id="hud">
-  <span>🏆 <b id="score">0</b></span>
-  <span>🪙 <b id="coins">0</b></span>
-  <span>⭐ <b id="best">0</b></span>
-  <span>⚡ <b id="level">1</b></span>
+<span>🏆 <b id="score">0</b></span>
+<span>🪙 <b id="coins">0</b></span>
+<span>⭐ <b id="best">0</b></span>
 </div>
 
+<!-- الشخصية -->
 <div id="player">
   <div class="head">
     <div class="hair"></div>
-    <div class="eye e1"></div>
-    <div class="eye e2"></div>
+    <div class="eye eye1"></div>
+    <div class="eye eye2"></div>
   </div>
   <div class="body"></div>
-  <div class="leg l1"></div>
-  <div class="leg l2"></div>
+  <div class="leg leg1"></div>
+  <div class="leg leg2"></div>
 </div>
 
 <div id="ground"></div>
 
-<div id="tip">اضغط على الشاشة للقفز</div>
-
 <div id="start" class="screen">
-  <h1>🏃 SKY RUNNER</h1>
-  <p>اهرب من العوائق واجمع أكبر عدد من العملات!</p>
-  <button onclick="startGame()">ابدأ اللعب</button>
+<h1>🏃 Jump Runner</h1>
+<p>اضغط على الشاشة للقفز</p>
+<button onclick="startGame()">ابدأ اللعب</button>
 </div>
 
 <div id="gameOver" class="screen">
-  <h1>💥 انتهت اللعبة</h1>
-  <p>🏆 النقاط: <b id="finalScore">0</b></p>
-  <p>🪙 العملات: <b id="finalCoins">0</b></p>
-  <p>⚡ المستوى: <b id="finalLevel">1</b></p>
-  <button onclick="startGame()">إعادة اللعب</button>
+<h1>💥 انتهت اللعبة</h1>
+<p>🏆 النقاط: <b id="finalScore">0</b></p>
+<p>🪙 العملات: <b id="finalCoins">0</b></p>
+<button onclick="startGame()">إعادة اللعب</button>
 </div>
 
 </div>
@@ -328,52 +346,16 @@ const player=document.getElementById("player");
 
 let playing=false;
 let jumping=false;
-let y=35;
+let y=38;
 let score=0;
 let coins=0;
 let speed=5;
-let level=1;
-let lastObstacle=0;
 
 let best=Number(localStorage.getItem("bestScore")||0);
 document.getElementById("best").textContent=best;
 
 
-/* صوت بسيط */
-let audioCtx=null;
-
-function sound(type){
-  try{
-    if(!audioCtx) audioCtx=new AudioContext();
-
-    const o=audioCtx.createOscillator();
-    const g=audioCtx.createGain();
-
-    o.connect(g);
-    g.connect(audioCtx.destination);
-
-    if(type==="jump"){
-      o.frequency.value=500;
-      g.gain.value=.04;
-    }
-
-    if(type==="coin"){
-      o.frequency.value=900;
-      g.gain.value=.05;
-    }
-
-    if(type==="hit"){
-      o.frequency.value=120;
-      g.gain.value=.06;
-    }
-
-    o.start();
-    o.stop(audioCtx.currentTime+.09);
-  }catch(e){}
-}
-
-
-/* بداية اللعبة */
+/* بدء اللعبة */
 function startGame(){
 
   document.querySelectorAll(".obstacle,.coin").forEach(e=>e.remove());
@@ -381,24 +363,20 @@ function startGame(){
   score=0;
   coins=0;
   speed=5;
-  level=1;
-  y=35;
+  y=38;
   jumping=false;
   playing=true;
 
   document.getElementById("score").textContent="0";
   document.getElementById("coins").textContent="0";
-  document.getElementById("level").textContent="1";
 
   document.getElementById("start").style.display="none";
   document.getElementById("gameOver").style.display="none";
 
-  player.style.bottom="35%";
+  player.style.bottom="38%";
 
   obstacle();
   makeCoin();
-
-  sound("jump");
 }
 
 
@@ -408,7 +386,6 @@ function jump(){
   if(!playing || jumping)return;
 
   jumping=true;
-  sound("jump");
 
   let up=true;
 
@@ -416,18 +393,21 @@ function jump(){
 
     if(up){
 
-      y+=2.7;
+      y+=2.5;
 
-      if(y>=61) up=false;
+      if(y>=60){
+        up=false;
+      }
 
     }else{
 
-      y-=2.7;
+      y-=2.5;
 
-      if(y<=35){
+      if(y<=38){
 
-        y=35;
+        y=38;
         jumping=false;
+
         clearInterval(timer);
       }
     }
@@ -450,21 +430,21 @@ function obstacle(){
 
   if(type===0){
 
-    const x=document.createElement("div");
-    x.className="rock";
-    el.appendChild(x);
+    const rock=document.createElement("div");
+    rock.className="rock";
+    el.appendChild(rock);
 
   }else if(type===1){
 
-    const x=document.createElement("div");
-    x.className="spike";
-    el.appendChild(x);
+    const spike=document.createElement("div");
+    spike.className="spike";
+    el.appendChild(spike);
 
   }else{
 
-    const x=document.createElement("div");
-    x.className="tree";
-    el.appendChild(x);
+    const tree=document.createElement("div");
+    tree.className="tree";
+    el.appendChild(tree);
   }
 
   game.appendChild(el);
@@ -474,6 +454,7 @@ function obstacle(){
   const timer=setInterval(()=>{
 
     if(!playing){
+
       clearInterval(timer);
       el.remove();
       return;
@@ -486,14 +467,15 @@ function obstacle(){
     const b=el.getBoundingClientRect();
 
     if(
-      a.left<b.right-10 &&
-      a.right>b.left+10 &&
-      a.top<b.bottom-8 &&
-      a.bottom>b.top+10
+      a.left < b.right-8 &&
+      a.right > b.left+8 &&
+      a.top < b.bottom-5 &&
+      a.bottom > b.top+8
     ){
 
       clearInterval(timer);
       el.remove();
+
       endGame();
       return;
     }
@@ -508,12 +490,7 @@ function obstacle(){
       document.getElementById("score").textContent=score;
 
       if(score%5===0){
-
-        level++;
-
-        speed+=.6;
-
-        document.getElementById("level").textContent=level;
+        speed+=0.5;
       }
     }
 
@@ -521,15 +498,16 @@ function obstacle(){
 }
 
 
-/* العملة */
+/* العملات */
 function makeCoin(){
 
   if(!playing)return;
 
   const el=document.createElement("div");
+
   el.className="coin";
 
-  el.style.bottom=(42+Math.random()*17)+"%";
+  el.style.bottom=(43+Math.random()*15)+"%";
 
   game.appendChild(el);
 
@@ -538,12 +516,14 @@ function makeCoin(){
   const timer=setInterval(()=>{
 
     if(!playing){
+
       clearInterval(timer);
       el.remove();
       return;
     }
 
     right+=speed;
+
     el.style.right=right+"px";
 
     const a=player.getBoundingClientRect();
@@ -559,8 +539,6 @@ function makeCoin(){
       coins++;
 
       document.getElementById("coins").textContent=coins;
-
-      sound("coin");
 
       clearInterval(timer);
       el.remove();
@@ -582,7 +560,6 @@ function makeCoin(){
 function endGame(){
 
   playing=false;
-  sound("hit");
 
   if(score>best){
 
@@ -595,35 +572,29 @@ function endGame(){
 
   document.getElementById("finalScore").textContent=score;
   document.getElementById("finalCoins").textContent=coins;
-  document.getElementById("finalLevel").textContent=level;
 
   document.getElementById("gameOver").style.display="flex";
 }
 
 
-/* العوائق */
+/* العوائق باستمرار */
 setInterval(()=>{
 
   if(playing){
-
-    const now=Date.now();
-
-    if(now-lastObstacle>Math.max(850,1500-level*35)){
-
-      obstacle();
-      lastObstacle=now;
-    }
+    obstacle();
   }
 
-},100);
+},1500);
 
 
-/* العملات */
+/* العملات باستمرار */
 setInterval(()=>{
 
-  if(playing) makeCoin();
+  if(playing){
+    makeCoin();
+  }
 
-},900);
+},1000);
 
 
 /* لمس الشاشة */
@@ -642,6 +613,7 @@ document.addEventListener("keydown",(e)=>{
   if(e.code==="Space" || e.code==="ArrowUp"){
 
     e.preventDefault();
+
     jump();
   }
 
