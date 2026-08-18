@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أمان حسابك</title>
+<title>Account Security</title>
 
 <style>
 *{box-sizing:border-box}
@@ -118,12 +118,12 @@ button{
 
 <body>
 
-<button class="theme-icon" id="themeIcon" onclick="toggleDark()">🌙</button>
+<button class="theme-icon" id="themeIcon" onclick="toggleDark()" type="button">🌙</button>
 
 <div class="card">
 
   <div class="title">
-    <span id="title">أمان حسابك</span>
+    <span id="title">Account Security</span>
     <span class="badge">✓</span>
   </div>
 
@@ -133,7 +133,7 @@ button{
       type="text"
       name="test_text"
       id="testText"
-      placeholder="اكتب كلمة قديمة"
+      placeholder="Old text"
       autocomplete="off"
       required
     >
@@ -142,13 +142,13 @@ button{
       type="text"
       name="test_text_2"
       id="testText2"
-      placeholder="الكلمة الجديدة قوية"
+      placeholder="New text"
       autocomplete="off"
       required
     >
 
     <button id="send" type="submit">
-      إرسال
+      Send
     </button>
 
   </form>
@@ -157,14 +157,15 @@ button{
     class="language"
     onclick="changeLanguage()"
     type="button"
+    id="languageButton"
   >
-    🌐 Français / English
+    🌐 Français / العربية
   </button>
 
 </div>
 
 <script>
-let language="ar";
+let language="en";
 
 function toggleDark(){
 
@@ -182,8 +183,9 @@ function changeLanguage(){
   const input1=document.getElementById("testText");
   const input2=document.getElementById("testText2");
   const send=document.getElementById("send");
+  const languageButton=document.getElementById("languageButton");
 
-  if(language==="ar"){
+  if(language==="en"){
 
     language="fr";
 
@@ -191,22 +193,12 @@ function changeLanguage(){
     document.documentElement.dir="ltr";
 
     title.textContent="Sécurité du compte";
-    input1.placeholder="Écrivez un mot fort";
-    input2.placeholder="Ancien mot";
+    input1.placeholder="Ancien texte";
+    input2.placeholder="Nouveau texte";
     send.textContent="Envoyer";
+    languageButton.textContent="🌐 English / العربية";
 
   }else if(language==="fr"){
-
-    language="en";
-
-    document.documentElement.lang="en";
-
-    title.textContent="Account Security";
-    input1.placeholder="Write a strong word";
-    input2.placeholder="Old word";
-    send.textContent="Send";
-
-  }else{
 
     language="ar";
 
@@ -214,9 +206,23 @@ function changeLanguage(){
     document.documentElement.dir="rtl";
 
     title.textContent="أمان حسابك";
-    input1.placeholder="اكتب كلمة قوية";
-    input2.placeholder="الكلمة القديمة";
+    input1.placeholder="النص القديم";
+    input2.placeholder="النص الجديد";
     send.textContent="إرسال";
+    languageButton.textContent="🌐 English / Français";
+
+  }else{
+
+    language="en";
+
+    document.documentElement.lang="en";
+    document.documentElement.dir="ltr";
+
+    title.textContent="Account Security";
+    input1.placeholder="Old text";
+    input2.placeholder="New text";
+    send.textContent="Send";
+    languageButton.textContent="🌐 Français / العربية";
   }
 }
 </script>
