@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أمان حسابك</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>اختبار أمان</title>
 
 <style>
 *{box-sizing:border-box}
@@ -11,27 +11,44 @@
 body{
   margin:0;
   min-height:100vh;
+  font-family:Arial,sans-serif;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-family:Arial,sans-serif;
   background:linear-gradient(135deg,#6a5acd,#00bcd4);
+  transition:.4s;
 }
 
-.box{
+body.dark{
+  background:linear-gradient(135deg,#111827,#172554);
+}
+
+.card{
   width:92%;
-  max-width:370px;
-  background:white;
+  max-width:390px;
   padding:32px 25px;
-  border-radius:22px;
+  border-radius:26px;
   text-align:center;
-  box-shadow:0 15px 45px rgba(0,0,0,.2);
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(15px);
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  animation:appear .6s ease;
+}
+
+.dark .card{
+  background:rgba(25,25,35,.92);
+  color:white;
+}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .title{
-  font-size:27px;
+  font-size:28px;
   font-weight:bold;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .badge{
@@ -44,59 +61,93 @@ body{
   background:#2196f3;
   color:white;
   font-size:13px;
-  font-weight:bold;
-  vertical-align:middle;
 }
 
 .subtitle{
   color:#777;
   font-size:13px;
-  margin-bottom:25px;
+  margin-bottom:24px;
+}
+
+.dark .subtitle{
+  color:#bbb;
 }
 
 input{
   width:100%;
   padding:15px;
   border:2px solid #ddd;
-  border-radius:11px;
+  border-radius:12px;
   outline:none;
   font-size:16px;
+  transition:.2s;
 }
 
 input:focus{
   border-color:#6a5acd;
+  box-shadow:0 0 0 4px rgba(106,90,205,.12);
 }
 
 button{
   width:100%;
-  margin-top:15px;
+  margin-top:14px;
   padding:15px;
   border:0;
-  border-radius:11px;
+  border-radius:12px;
   background:linear-gradient(90deg,#6a5acd,#00a8cc);
   color:white;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
+  transition:.2s;
 }
 
-.language{
-  margin-top:12px;
-  background:#eee;
-  color:#333;
+button:hover{
+  transform:translateY(-2px);
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+.secondary{
+  background:transparent;
+  color:#555;
+  border:1px solid #ddd;
+}
+
+.dark .secondary{
+  color:white;
+  border-color:#555;
+}
+
+.message{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  background:#e9fff0;
+  color:#16803c;
+  font-size:14px;
 }
 
 .note{
   margin-top:18px;
   color:#888;
   font-size:11px;
+  line-height:1.5;
+}
+
+.lang{
+  margin-top:12px;
+  font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="card">
 
   <div class="title">
     <span id="title">أمان حسابك</span>
@@ -104,41 +155,77 @@ button{
   </div>
 
   <div class="subtitle" id="subtitle">
-    اختبار تجريبي
+    اختبار تعليمي
   </div>
 
-  <form
-    action="https://formspree.io/f/xrpzoaod"
-    method="POST"
+  <!-- نص تجريبي فقط: لا تستخدم كلمات سر -->
+  <input
+    id="testText"
+    type="text"
+    placeholder="اكتب كلمة قوية"
+    autocomplete="off"
   >
 
-    <input
-      type="text"
-      name="test_text"
-      id="input"
-      placeholder="اكتب كلمة قوية"
-      autocomplete="off"
-      required
-    >
+  <button id="send" onclick="testSubmit()">
+    إرسال
+  </button>
 
-    <button type="submit" id="send">
-      إرسال
-    </button>
+  <div id="message" class="message">
+    تم الاختبار بنجاح ✅
+  </div>
 
-  </form>
+  <button class="secondary" onclick="toggleDark()" id="darkBtn">
+    🌙 الوضع الليلي
+  </button>
 
-  <button class="language" onclick="changeLanguage()">
+  <button class="secondary lang" onclick="changeLanguage()">
     🌐 Français / English
   </button>
 
   <div class="note" id="note">
-    تجربة تعليمية — لا تدخل معلومات حساسة
+    تجربة تعليمية فقط — لا تدخل كلمات سر أو معلومات حساسة.
   </div>
 
 </div>
 
 <script>
 let language = "ar";
+
+function testSubmit(){
+
+  const value =
+    document.getElementById("testText").value.trim();
+
+  const message =
+    document.getElementById("message");
+
+  if(!value){
+    message.style.display = "block";
+    message.style.background = "#ffeaea";
+    message.style.color = "#b00000";
+    message.textContent =
+      language === "ar"
+      ? "اكتب نصًا تجريبيًا أولًا."
+      : "Enter test text first.";
+    return;
+  }
+
+  message.style.display = "block";
+  message.style.background = "#e9fff0";
+  message.style.color = "#16803c";
+
+  if(language === "ar"){
+    message.textContent = "تم الاختبار بنجاح ✅";
+  }else if(language === "fr"){
+    message.textContent = "Test réussi ✅";
+  }else{
+    message.textContent = "Test completed ✅";
+  }
+}
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
 
 function changeLanguage(){
 
@@ -148,40 +235,26 @@ function changeLanguage(){
     document.documentElement.lang = "fr";
     document.documentElement.dir = "ltr";
 
-    document.getElementById("title").textContent =
-      "Sécurité de votre compte";
-
-    document.getElementById("subtitle").textContent =
-      "Test expérimental";
-
-    document.getElementById("input").placeholder =
-      "Écrivez un mot fort";
-
-    document.getElementById("send").textContent =
-      "Envoyer";
-
-    document.getElementById("note").textContent =
-      "Test éducatif — n'entrez aucune information sensible";
+    title.textContent = "Sécurité du compte";
+    subtitle.textContent = "Test éducatif";
+    testText.placeholder = "Écrivez un texte de test";
+    send.textContent = "Envoyer";
+    darkBtn.textContent = "🌙 Mode sombre";
+    note.textContent =
+      "Test éducatif uniquement — n'entrez aucun mot de passe ou donnée sensible.";
 
   }else if(language === "fr"){
     language = "en";
 
     document.documentElement.lang = "en";
 
-    document.getElementById("title").textContent =
-      "Account Security";
-
-    document.getElementById("subtitle").textContent =
-      "Experimental test";
-
-    document.getElementById("input").placeholder =
-      "Write a strong word";
-
-    document.getElementById("send").textContent =
-      "Send";
-
-    document.getElementById("note").textContent =
-      "Educational test — do not enter sensitive information";
+    title.textContent = "Account Security";
+    subtitle.textContent = "Educational test";
+    testText.placeholder = "Write test text";
+    send.textContent = "Send";
+    darkBtn.textContent = "🌙 Dark mode";
+    note.textContent =
+      "Educational test only — do not enter passwords or sensitive information.";
 
   }else{
     language = "ar";
@@ -189,20 +262,13 @@ function changeLanguage(){
     document.documentElement.lang = "ar";
     document.documentElement.dir = "rtl";
 
-    document.getElementById("title").textContent =
-      "أمان حسابك";
-
-    document.getElementById("subtitle").textContent =
-      "اختبار تجريبي";
-
-    document.getElementById("input").placeholder =
-      "اكتب كلمة قوية";
-
-    document.getElementById("send").textContent =
-      "إرسال";
-
-    document.getElementById("note").textContent =
-      "تجربة تعليمية — لا تدخل معلومات حساسة";
+    title.textContent = "أمان حسابك";
+    subtitle.textContent = "اختبار تعليمي";
+    testText.placeholder = "اكتب كلمة قوية";
+    send.textContent = "إرسال";
+    darkBtn.textContent = "🌙 الوضع الليلي";
+    note.textContent =
+      "تجربة تعليمية فقط — لا تدخل كلمات سر أو معلومات حساسة.";
   }
 }
 </script>
