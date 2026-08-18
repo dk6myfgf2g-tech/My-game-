@@ -1,11 +1,15 @@
-تفاصيل النموذج مع الرابط المخصص لك جاهزة في الكود التالي. يمكنك نسخه ولصقه مباشرة في ملف الـ HTML الخاص بموقعك:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>نموذج الاتصال</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
@@ -14,80 +18,98 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
+
     .form-container {
-      background: #ffffff;
+      background: #fff;
       padding: 25px;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,.1);
       width: 100%;
       max-width: 400px;
     }
-    .form-container h2 {
-      margin-bottom: 20px;
+
+    h2 {
+      margin: 0 0 20px;
       color: #333;
       text-align: center;
     }
+
     .form-group {
       margin-bottom: 15px;
     }
-    .form-group label {
+
+    label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #555;
     }
-    .form-group input,
-    .form-group textarea {
+
+    input,
+    textarea {
       width: 100%;
-      padding: 10px;
+      padding: 11px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-sizing: border-box;
       font-size: 14px;
+      font-family: inherit;
     }
-    .form-group textarea {
+
+    textarea {
       resize: vertical;
-      height: 100px;
+      min-height: 110px;
     }
+
     button {
       width: 100%;
       padding: 12px;
-      background-color: #007bff;
+      background: #007bff;
       color: white;
-      border: none;
+      border: 0;
       border-radius: 4px;
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background: #0056b3;
     }
   </style>
 </head>
+
 <body>
 
   <div class="form-container">
     <h2>تواصل معنا</h2>
-    
-    <!-- بداية النموذج مع رابط Formspree الخاص بك -->
-    <form action="https://formspree.io/f/xppaokpo" method="POST">
-      
+
+    <form action="https://formspree.io/f/xvkpvdvv" method="POST">
+
       <div class="form-group">
         <label for="email">البريد الإلكتروني:</label>
-        <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="example@mail.com"
+          required
+        >
       </div>
 
       <div class="form-group">
         <label for="message">الرسالة:</label>
-        <textarea id="message" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="اكتب رسالتك هنا..."
+          required
+        ></textarea>
       </div>
 
       <button type="submit">إرسال</button>
 
     </form>
-    <!-- نهاية النموذج -->
   </div>
 
 </body>
 </html>
-
