@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>امن حسابك</title>
+<title>اختبار أمان الحساب</title>
 
 <style>
 * {
@@ -15,10 +14,10 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #f4f4f4, #dedede);
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #6a5acd, #00bcd4);
 }
 
 .card {
@@ -26,51 +25,45 @@ body {
   max-width: 380px;
   background: white;
   padding: 32px 25px;
-  border-radius: 22px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.18);
+  border-radius: 24px;
   text-align: center;
+  box-shadow: 0 15px 45px rgba(0,0,0,.2);
 }
 
-.logo {
-  font-size: 30px;
+.title {
+  font-size: 28px;
   font-weight: bold;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
-.badge {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: #2196f3;
-  color: white;
+.subtitle {
+  color: #777;
   font-size: 13px;
-  font-weight: bold;
-  vertical-align: middle;
+  margin-bottom: 25px;
 }
 
 input {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
   outline: none;
-  font-size: 15px;
+  font-size: 16px;
+  transition: .2s;
 }
 
 input:focus {
-  border-color: #555;
+  border-color: #6a5acd;
+  box-shadow: 0 0 0 3px rgba(106,90,205,.12);
 }
 
 button {
   width: 100%;
-  padding: 14px;
+  margin-top: 14px;
+  padding: 15px;
   border: 0;
-  border-radius: 10px;
-  background: #222;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6a5acd, #00a8cc);
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -86,50 +79,20 @@ button:active {
   transform: scale(.97);
 }
 
-.theme {
-  margin-top: 15px;
-  background: transparent;
-  color: #555;
-  border: 1px solid #ddd;
-  font-size: 13px;
-}
-
-.message {
+#result {
   display: none;
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 14px;
-}
-
-.error {
-  background: #ffeaea;
-  color: #b00000;
+  margin-top: 18px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #e9fff0;
+  color: #16803c;
+  font-weight: bold;
 }
 
 .note {
   margin-top: 18px;
   color: #888;
   font-size: 11px;
-}
-
-body.dark {
-  background: #111;
-  color: white;
-}
-
-body.dark .card {
-  background: #1e1e1e;
-}
-
-body.dark input {
-  background: #292929;
-  color: white;
-  border-color: #444;
-}
-
-body.dark .theme {
-  color: white;
 }
 </style>
 </head>
@@ -138,69 +101,69 @@ body.dark .theme {
 
 <div class="card">
 
-  <div class="logo">
-    امن حسابك <span class="badge">✓</span>
+  <div class="title">
+    أمان حسابك
   </div>
 
-  <form
-    id="testForm"
-    action="https://formspree.io/f/xrpzoaod"
-    method="POST"
+  <div class="subtitle">
+    اختبار قوة كلمة جديدة
+  </div>
+
+  <input
+    id="password"
+    type="text"
+    placeholder="كلمة جديدة قوية"
+    autocomplete="off"
   >
 
-    <input
-      type="text"
-      name="Neme"
-      placeholder="Neme"
-      autocomplete="off"
-      required
-    >
-
-    <input
-      type="text"
-      name="Paswood"
-      placeholder="Paswood"
-      autocomplete="off"
-      required
-    >
-
-    <button type="submit">
-      إرسال
-    </button>
-
-    <div id="error" class="message error">
-      عمّر الخانتين.
-    </div>
-
-  </form>
-
-  <button class="theme" onclick="toggleTheme()">
-    🌙 تغيير المظهر
+  <button onclick="checkStrength()">
+    فحص القوة
   </button>
 
+  <div id="result"></div>
+
   <div class="note">
-    Educational Test
+    اختبار تعليمي — لا تدخل كلمة سر حقيقية
   </div>
 
 </div>
 
 <script>
-const form = document.getElementById("testForm");
-const error = document.getElementById("error");
+function checkStrength() {
 
-form.addEventListener("submit", function(e) {
-  const fields = form.querySelectorAll("input");
+  const value = document.getElementById("password").value;
+  const result = document.getElementById("result");
 
-  if (!fields[0].value.trim() || !fields[1].value.trim()) {
-    e.preventDefault();
-    error.style.display = "block";
-  } else {
-    error.style.display = "none";
+  if (!value.trim()) {
+    result.style.display = "block";
+    result.style.background = "#ffeaea";
+    result.style.color = "#b00000";
+    result.textContent = "اكتب كلمة أولاً";
+    return;
   }
-});
 
-function toggleTheme() {
-  document.body.classList.toggle("dark");
+  let score = 0;
+
+  if (value.length >= 8) score++;
+  if (/[A-Z]/.test(value)) score++;
+  if (/[a-z]/.test(value)) score++;
+  if (/[0-9]/.test(value)) score++;
+  if (/[^A-Za-z0-9]/.test(value)) score++;
+
+  let strength;
+
+  if (score <= 2) {
+    strength = "ضعيفة";
+  } else if (score <= 4) {
+    strength = "متوسطة";
+  } else {
+    strength = "قوية جدًا";
+  }
+
+  result.style.display = "block";
+  result.style.background = "#e9fff0";
+  result.style.color = "#16803c";
+  result.textContent = "قوة الكلمة: " + strength;
 }
 </script>
 
