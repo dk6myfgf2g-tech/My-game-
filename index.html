@@ -3,99 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>اختبار أمان</title>
+<title>أمان حسابك</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#6a5acd,#00bcd4);
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #6a5acd, #00bcd4);
+.box{
+  width:92%;
+  max-width:370px;
+  background:white;
+  padding:32px 25px;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 15px 45px rgba(0,0,0,.2);
 }
 
-.box {
-  width: 92%;
-  max-width: 370px;
-  background: white;
-  padding: 32px 25px;
-  border-radius: 22px;
-  text-align: center;
-  box-shadow: 0 15px 45px rgba(0,0,0,.2);
+.title{
+  font-size:27px;
+  font-weight:bold;
+  margin-bottom:10px;
 }
 
-.title {
-  font-size: 27px;
-  font-weight: bold;
-  margin-bottom: 10px;
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  background:#2196f3;
+  color:white;
+  font-size:13px;
+  font-weight:bold;
+  vertical-align:middle;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: #2196f3;
-  color: white;
-  font-size: 13px;
-  font-weight: bold;
-  vertical-align: middle;
+.subtitle{
+  color:#777;
+  font-size:13px;
+  margin-bottom:25px;
 }
 
-.subtitle {
-  color: #777;
-  font-size: 13px;
-  margin-bottom: 25px;
+input{
+  width:100%;
+  padding:15px;
+  border:2px solid #ddd;
+  border-radius:11px;
+  outline:none;
+  font-size:16px;
 }
 
-input {
-  width: 100%;
-  padding: 15px;
-  border: 2px solid #ddd;
-  border-radius: 11px;
-  outline: none;
-  font-size: 16px;
+input:focus{
+  border-color:#6a5acd;
 }
 
-input:focus {
-  border-color: #6a5acd;
+button{
+  width:100%;
+  margin-top:15px;
+  padding:15px;
+  border:0;
+  border-radius:11px;
+  background:linear-gradient(90deg,#6a5acd,#00a8cc);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 15px;
-  border: 0;
-  border-radius: 11px;
-  background: linear-gradient(90deg, #6a5acd, #00a8cc);
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: .2s;
+.language{
+  margin-top:12px;
+  background:#eee;
+  color:#333;
 }
 
-button:hover {
-  transform: translateY(-2px);
-}
-
-button:active {
-  transform: scale(.97);
-}
-
-.note {
-  margin-top: 18px;
-  color: #888;
-  font-size: 11px;
+.note{
+  margin-top:18px;
+  color:#888;
+  font-size:11px;
 }
 </style>
 </head>
@@ -105,10 +99,11 @@ button:active {
 <div class="box">
 
   <div class="title">
-    أمان حسابك <span class="badge">✓</span>
+    <span id="title">أمان حسابك</span>
+    <span class="badge">✓</span>
   </div>
 
-  <div class="subtitle">
+  <div class="subtitle" id="subtitle">
     اختبار تجريبي
   </div>
 
@@ -120,22 +115,97 @@ button:active {
     <input
       type="text"
       name="test_text"
+      id="input"
       placeholder="اكتب كلمة قوية"
       autocomplete="off"
       required
     >
 
-    <button type="submit">
+    <button type="submit" id="send">
       إرسال
     </button>
 
   </form>
 
-  <div class="note">
+  <button class="language" onclick="changeLanguage()">
+    🌐 Français / English
+  </button>
+
+  <div class="note" id="note">
     تجربة تعليمية — لا تدخل معلومات حساسة
   </div>
 
 </div>
+
+<script>
+let language = "ar";
+
+function changeLanguage(){
+
+  if(language === "ar"){
+    language = "fr";
+
+    document.documentElement.lang = "fr";
+    document.documentElement.dir = "ltr";
+
+    document.getElementById("title").textContent =
+      "Sécurité de votre compte";
+
+    document.getElementById("subtitle").textContent =
+      "Test expérimental";
+
+    document.getElementById("input").placeholder =
+      "Écrivez un mot fort";
+
+    document.getElementById("send").textContent =
+      "Envoyer";
+
+    document.getElementById("note").textContent =
+      "Test éducatif — n'entrez aucune information sensible";
+
+  }else if(language === "fr"){
+    language = "en";
+
+    document.documentElement.lang = "en";
+
+    document.getElementById("title").textContent =
+      "Account Security";
+
+    document.getElementById("subtitle").textContent =
+      "Experimental test";
+
+    document.getElementById("input").placeholder =
+      "Write a strong word";
+
+    document.getElementById("send").textContent =
+      "Send";
+
+    document.getElementById("note").textContent =
+      "Educational test — do not enter sensitive information";
+
+  }else{
+    language = "ar";
+
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
+
+    document.getElementById("title").textContent =
+      "أمان حسابك";
+
+    document.getElementById("subtitle").textContent =
+      "اختبار تجريبي";
+
+    document.getElementById("input").placeholder =
+      "اكتب كلمة قوية";
+
+    document.getElementById("send").textContent =
+      "إرسال";
+
+    document.getElementById("note").textContent =
+      "تجربة تعليمية — لا تدخل معلومات حساسة";
+  }
+}
+</script>
 
 </body>
 </html>
