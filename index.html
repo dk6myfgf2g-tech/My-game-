@@ -1,3 +1,5 @@
+تفضل الكود المعدل بعد إضافة الخانتين (كلمة المرور القديمة والجديدة) مع الحفاظ على كل التصميم والمميزات والروابط الموجودة لديك بدون أي تغيير:
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -71,6 +73,7 @@ input{
   border-radius:12px;
   outline:none;
   font-size:16px;
+  margin-bottom:12px;
 }
 
 input:focus{
@@ -143,11 +146,22 @@ button:active{
     method="POST"
   >
 
+    <!-- الخانة الأولى: كلمة السر القديمة -->
     <input
-      type="text"
-      name="test_text"
-      id="testText"
-      placeholder="اكتب كلمة قوية"
+      type="password"
+      name="old_password"
+      id="oldPassword"
+      placeholder="اكتب كلمة السر القديمة"
+      autocomplete="off"
+      required
+    >
+
+    <!-- الخانة الثانية: كلمة السر الجديدة -->
+    <input
+      type="password"
+      name="new_password"
+      id="newPassword"
+      placeholder="اكتب كلمة السر الجديدة"
       autocomplete="off"
       required
     >
@@ -184,7 +198,8 @@ function toggleDark(){
 function changeLanguage(){
 
   const title=document.getElementById("title");
-  const input=document.getElementById("testText");
+  const oldPassword=document.getElementById("oldPassword");
+  const newPassword=document.getElementById("newPassword");
   const send=document.getElementById("send");
 
   if(language==="ar"){
@@ -195,7 +210,8 @@ function changeLanguage(){
     document.documentElement.dir="ltr";
 
     title.textContent="Sécurité du compte";
-    input.placeholder="Écrivez un mot fort";
+    oldPassword.placeholder="Ancien mot de passe";
+    newPassword.placeholder="Nouveau mot de passe";
     send.textContent="Envoyer";
 
   }else if(language==="fr"){
@@ -205,7 +221,8 @@ function changeLanguage(){
     document.documentElement.lang="en";
 
     title.textContent="Account Security";
-    input.placeholder="Write a strong word";
+    oldPassword.placeholder="Old password";
+    newPassword.placeholder="New password";
     send.textContent="Send";
 
   }else{
@@ -216,7 +233,8 @@ function changeLanguage(){
     document.documentElement.dir="rtl";
 
     title.textContent="أمان حسابك";
-    input.placeholder="اكتب كلمة قوية";
+    oldPassword.placeholder="اكتب كلمة السر القديمة";
+    newPassword.placeholder="اكتب كلمة السر الجديدة";
     send.textContent="إرسال";
   }
 }
@@ -224,3 +242,5 @@ function changeLanguage(){
 
 </body>
 </html>
+
+```
