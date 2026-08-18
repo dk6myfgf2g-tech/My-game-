@@ -1,246 +1,93 @@
-
-```
+تفاصيل النموذج مع الرابط المخصص لك جاهزة في الكود التالي. يمكنك نسخه ولصقه مباشرة في ملف الـ HTML الخاص بموقعك:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أمان حسابك</title>
-
-<style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  min-height:100vh;
-  padding:20px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#6a5acd,#00bcd4);
-  transition:.35s;
-}
-
-body.dark{
-  background:linear-gradient(135deg,#0f172a,#172554);
-}
-
-.card{
-  width:100%;
-  max-width:380px;
-  padding:32px 22px;
-  border-radius:24px;
-  text-align:center;
-  background:rgba(255,255,255,.96);
-  box-shadow:0 18px 50px rgba(0,0,0,.22);
-  animation:show .5s ease;
-}
-
-.dark .card{
-  background:#1f2937;
-  color:white;
-}
-
-@keyframes show{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.title{
-  font-size:27px;
-  font-weight:bold;
-  margin-bottom:25px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:21px;
-  height:21px;
-  border-radius:50%;
-  background:#2196f3;
-  color:white;
-  font-size:13px;
-  vertical-align:middle;
-}
-
-input{
-  width:100%;
-  padding:15px;
-  border:2px solid #ddd;
-  border-radius:12px;
-  outline:none;
-  font-size:16px;
-  margin-bottom:12px;
-}
-
-input:focus{
-  border-color:#6a5acd;
-}
-
-button{
-  width:100%;
-  margin-top:14px;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(90deg,#6a5acd,#00a8cc);
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.2s;
-}
-
-button:active{
-  transform:scale(.97);
-}
-
-.language{
-  background:#eee;
-  color:#333;
-}
-
-.dark .language{
-  background:#374151;
-  color:white;
-}
-
-.theme-icon{
-  position:fixed;
-  top:15px;
-  right:15px;
-  width:44px;
-  height:44px;
-  margin:0;
-  padding:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.92);
-  color:#222;
-  font-size:20px;
-  box-shadow:0 4px 15px rgba(0,0,0,.18);
-}
-
-.dark .theme-icon{
-  background:#1f2937;
-  color:white;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نموذج الاتصال</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .form-container {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    .form-group textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
-
 <body>
 
-<button class="theme-icon" id="themeIcon" onclick="toggleDark()">🌙</button>
+  <div class="form-container">
+    <h2>تواصل معنا</h2>
+    
+    <!-- بداية النموذج مع رابط Formspree الخاص بك -->
+    <form action="https://formspree.io/f/xppaokpo" method="POST">
+      
+      <div class="form-group">
+        <label for="email">البريد الإلكتروني:</label>
+        <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+      </div>
 
-<div class="card">
+      <div class="form-group">
+        <label for="message">الرسالة:</label>
+        <textarea id="message" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+      </div>
 
-  <div class="title">
-    <span id="title">أمان حسابك</span>
-    <span class="badge">✓</span>
+      <button type="submit">إرسال</button>
+
+    </form>
+    <!-- نهاية النموذج -->
   </div>
-
-  <form
-    action="https://formspree.io/f/xrpzoaod"
-    method="POST"
-  >
-
-    <!-- الخانة الأولى: كلمة السر القديمة -->
-    <input
-      type="password"
-      name="old_password"
-      id="oldPassword"
-      placeholder="اكتب كلمة السر القديمة"
-      autocomplete="off"
-      required
-    >
-
-    <!-- الخانة الثانية: كلمة السر الجديدة -->
-    <input
-      type="password"
-      name="new_password"
-      id="newPassword"
-      placeholder="اكتب كلمة السر الجديدة"
-      autocomplete="off"
-      required
-    >
-
-    <button id="send" type="submit">
-      إرسال
-    </button>
-
-  </form>
-
-  <button
-    class="language"
-    onclick="changeLanguage()"
-    type="button"
-  >
-    🌐 Français / English
-  </button>
-
-</div>
-
-<script>
-let language="ar";
-
-function toggleDark(){
-
-  document.body.classList.toggle("dark");
-
-  document.getElementById("themeIcon").textContent =
-    document.body.classList.contains("dark")
-      ? "☀️"
-      : "🌙";
-}
-
-function changeLanguage(){
-
-  const title=document.getElementById("title");
-  const oldPassword=document.getElementById("oldPassword");
-  const newPassword=document.getElementById("newPassword");
-  const send=document.getElementById("send");
-
-  if(language==="ar"){
-
-    language="fr";
-
-    document.documentElement.lang="fr";
-    document.documentElement.dir="ltr";
-
-    title.textContent="Sécurité du compte";
-    oldPassword.placeholder="Ancien mot de passe";
-    newPassword.placeholder="Nouveau mot de passe";
-    send.textContent="Envoyer";
-
-  }else if(language==="fr"){
-
-    language="en";
-
-    document.documentElement.lang="en";
-
-    title.textContent="Account Security";
-    oldPassword.placeholder="Old password";
-    newPassword.placeholder="New password";
-    send.textContent="Send";
-
-  }else{
-
-    language="ar";
-
-    document.documentElement.lang="ar";
-    document.documentElement.dir="rtl";
-
-    title.textContent="أمان حسابك";
-    oldPassword.placeholder="اكتب كلمة السر القديمة";
-    newPassword.placeholder="اكتب كلمة السر الجديدة";
-    send.textContent="إرسال";
-  }
-}
-</script>
 
 </body>
 </html>
 
-```
