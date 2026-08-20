@@ -2,94 +2,119 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>أمان حسابك</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أرسل رسالتك</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+}
 
 body{
-margin:0;
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#6157d8,#00b8d4);
+  min-height:100vh;
+  background:#f5f5fa;
+  font-family:Arial,"Tahoma",sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px 0;
 }
 
 .card{
-width:calc(100% - 40px);
-max-width:460px;
-background:#fff;
-border-radius:28px;
-padding:38px 32px 32px;
-text-align:center;
-box-shadow:0 20px 50px #0003;
+  width:100%;
+  max-width:710px;
+  background:#fff;
+  border-radius:24px;
+  padding:75px 46px 72px;
+  box-shadow:0 12px 35px rgba(0,0,0,.08);
 }
 
-.title{
-font-size:29px;
-font-weight:800;
-margin-bottom:8px;
-color:#111;
+h1{
+  margin:0 0 38px;
+  text-align:center;
+  color:#222;
+  font-size:42px;
+  font-weight:700;
 }
 
-.check{
-display:inline-flex;
-width:28px;
-height:28px;
-border-radius:50%;
-background:#2196f3;
-color:white;
-align-items:center;
-justify-content:center;
-font-size:18px;
+textarea{
+  display:block;
+  width:100%;
+  height:255px;
+  resize:none;
+  border:2px solid #d5d5d5;
+  border-radius:17px;
+  outline:none;
+  padding:28px 24px;
+  font-size:22px;
+  font-family:inherit;
+  color:#222;
+  direction:rtl;
+  background:#fff;
 }
 
-.subtitle{
-color:#999;
-font-size:16px;
-margin-bottom:32px;
+textarea::placeholder{
+  color:#aaa;
+  opacity:1;
 }
 
-input{
-width:100%;
-height:68px;
-border:2px solid #ddd;
-border-radius:15px;
-padding:0 20px;
-font-size:18px;
-outline:none;
-text-align:right;
+textarea:focus{
+  border-color:#1597d1;
 }
 
-input:focus{
-border-color:#6285e8;
+.send{
+  width:100%;
+  height:82px;
+  margin-top:35px;
+  border:0;
+  border-radius:16px;
+  background:#1196d2;
+  color:white;
+  font-family:inherit;
+  font-size:28px;
+  cursor:pointer;
+  transition:.15s;
 }
 
-button{
-width:100%;
-height:68px;
-margin-top:18px;
-border:0;
-border-radius:15px;
-background:linear-gradient(90deg,#6653d9,#08acd0);
-color:#fff;
-font-size:20px;
-font-weight:bold;
-cursor:pointer;
+.send:active{
+  transform:scale(.98);
 }
 
-.lang{
-background:#eee;
-color:#333;
-}
+@media(max-width:600px){
 
-.note{
-margin-top:28px;
-font-size:13px;
-color:#999;
+  body{
+    padding:0;
+    align-items:center;
+  }
+
+  .card{
+    width:100%;
+    border-radius:22px;
+    padding:70px 46px 72px;
+  }
+
+  h1{
+    font-size:36px;
+    margin-bottom:35px;
+  }
+
+  textarea{
+    height:220px;
+    font-size:19px;
+    padding:25px 20px;
+  }
+
+  .send{
+    height:82px;
+    font-size:25px;
+    margin-top:35px;
+  }
 }
 </style>
 </head>
@@ -98,72 +123,39 @@ color:#999;
 
 <div class="card">
 
-<div class="title">
-<span class="check">✓</span>
-أمان حسابك
-</div>
+  <h1>أرسل رسالتك</h1>
 
-<div class="subtitle">
-اختبار تجريبي
-</div>
+  <textarea
+    id="message"
+    maxlength="1000"
+    placeholder="اكتب رسالتك أو بياناتك هنا..."
+    autocomplete="off"></textarea>
 
-<input
-id="message"
-type="text"
-maxlength="500"
-placeholder="اكتب رسالة تجريبية"
-autocomplete="off">
-
-<button onclick="sendTelegram()">
-إرسال
-</button>
-
-<button class="lang" onclick="openTelegram()">
-Français / English 🌐
-</button>
-
-<div class="note">
-تجربة تعليمية — لا تدخل معلومات حساسة
-</div>
+  <button class="send" onclick="sendMessage()">
+    إرسال
+  </button>
 
 </div>
 
 <script>
+function sendMessage(){
 
-function sendTelegram(){
+  const message = document.getElementById("message").value.trim();
 
-const msg=document.getElementById("message").value.trim();
+  if(!message){
+    alert("اكتب رسالتك أولاً");
+    return;
+  }
 
-if(!msg){
-alert("اكتب رسالة تجريبية");
-return;
+  /*
+    ضع هنا رابط الـBackend الآمن الخاص بك
+    لإرسال الرسالة إلى Telegram.
+  */
+
+  alert("تم تجهيز الرسالة للإرسال ✅");
+
+  document.getElementById("message").value = "";
 }
-
-/*
-الإرسال الصامت إلى Telegram يحتاج Backend
-حتى لا يتم كشف Bot Token داخل GitHub Pages.
-*/
-
-const text=encodeURIComponent(
-"📩 رسالة تجريبية:\n\n"+msg
-);
-
-window.open(
-"https://t.me/share/url?url=&text="+text,
-"_blank"
-);
-
-}
-
-function openTelegram(){
-
-window.open(
-"https://t.me/",
-"_blank"
-);
-
-}
-
 </script>
 
 </body>
